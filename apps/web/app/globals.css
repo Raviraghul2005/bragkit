@@ -335,6 +335,12 @@ select:focus-visible {
   font-size: 14px;
 }
 
+/* The GitHub mark on the Star button, in the button's own text colour. */
+.btn-star .gh-mark {
+  flex: none;
+  margin-right: -2px;
+}
+
 .btn-mono {
   font-family: var(--font-mono);
 }

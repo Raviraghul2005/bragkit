@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { github } from "bragkit/logos";
 import { site } from "@/lib/site";
 
 function formatStars(n: number) {
@@ -28,7 +29,10 @@ export function StarButton() {
   }, []);
 
   return (
-    <a className="btn btn-l btn-s" href={site.repo}>
+    <a className="btn btn-l btn-s btn-star" href={site.repo}>
+      <svg className="gh-mark" viewBox="0 0 24 24" width={18} height={18} fill="currentColor" aria-hidden="true">
+        <path d={github.path} />
+      </svg>
       Star
       {stars !== null ? (
         <span className="medal">
