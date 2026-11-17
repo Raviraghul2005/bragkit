@@ -29,7 +29,7 @@ Done:
 | 006 | Open For Work | East | `OpenForWork` | client |
 | 007 | Currently Reading | East | `CurrentlyReading` | server |
 | 008 | Coding Today | East | `CodingToday` | server |
-| 009 | Contribution Tapestry | West | `ContributionTapestry` | server |
+| 009 | Contribution Almanac | West | `ContributionAlmanac` | client |
 | 010 | Trophy Case | West | `TrophyCase` | client |
 | 011 | Ship Log | West | `ShipLog` | client |
 | 012 | Stats Plaque | West | `StatsPlaque` | client |

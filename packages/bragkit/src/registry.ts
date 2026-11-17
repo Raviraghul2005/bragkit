@@ -7,7 +7,7 @@ import { meta as localTime } from "./exhibits/local-time/meta";
 import { meta as statusCard } from "./exhibits/status-card/meta";
 import { meta as techStack } from "./exhibits/tech-stack/meta";
 import { meta as openForWork } from "./exhibits/open-for-work/meta";
-import { meta as contributionTapestry } from "./exhibits/contribution-tapestry/meta";
+import { meta as contributionAlmanac } from "./exhibits/contribution-almanac/meta";
 import { meta as trophyCase } from "./exhibits/trophy-case/meta";
 import { meta as statsPlaque } from "./exhibits/stats-plaque/meta";
 import { meta as callingCards } from "./exhibits/calling-cards/meta";
@@ -33,7 +33,7 @@ const all: ExhibitMeta[] = [
   statusCard,
   techStack,
   openForWork,
-  contributionTapestry,
+  contributionAlmanac,
   trophyCase,
   statsPlaque,
   callingCards,

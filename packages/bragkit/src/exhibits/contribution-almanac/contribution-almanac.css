@@ -1,0 +1,90 @@
+/* No. 009 Contribution Almanac: a year of activity printed on a pinned almanac card. Twelve
+   month blocks that wrap to fit, a readout line that answers whatever you point at, and the
+   numbers that matter underneath. */
+.bk-contribution-almanac {
+  --bk-ca-c: 0.62em;
+  --bk-ca-g: 0.15em;
+  --bk-ca-gx: 0.8em;
+  --bk-ca-pad: 1.45em;
+  --bk-ca-month-w: calc(6 * var(--bk-ca-c) + 5 * var(--bk-ca-g));
+  --bk-ca-ink: var(--bk-on-case);
+  --bk-ca-soft: var(--bk-on-case-soft);
+  /* The ink: the strong colour of the tone, or plain black ink. */
+  --bk-ca-a: var(--bk-a);
+  width: calc(var(--bk-ca-per, 6) * var(--bk-ca-month-w) + (var(--bk-ca-per, 6) - 1) * var(--bk-ca-gx) + 2 * var(--bk-ca-pad));
+  max-width: 100%;
+}
+.bk-contribution-almanac[data-tone="plain"] { --bk-ca-a: var(--bk-accent, #26262a); }
+
+/* The card: printed paper, pinned to the wall at the top corners. */
+.bk-ca-card { container: bk-card / inline-size; position: relative; display: grid; gap: 1.15em; padding: 1.3em var(--bk-ca-pad) 1.25em; border-radius: 0.35em; color: var(--bk-ca-ink); background: linear-gradient(var(--bk-paper), var(--bk-paper-shade)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 0 0 1px rgba(9, 9, 11, 0.05), var(--bk-shadow-paper); }
+.bk-ca-pin { position: absolute; top: 0.55em; width: 0.62em; height: 0.62em; border-radius: 50%; background: radial-gradient(circle at 35% 30%, var(--bk-brass-hi), var(--bk-brass-lo) 80%); box-shadow: 0 1px 2px rgba(51, 37, 10, 0.55), 0.12em 0.2em 0.25em rgba(51, 37, 10, 0.18); }
+.bk-ca-pin[data-side="l"] { left: 0.6em; }
+.bk-ca-pin[data-side="r"] { right: 0.6em; }
+
+/* Heading: the caption, the big total, and a link in the corner. */
+.bk-ca-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 0.6em 1.2em; flex-wrap: wrap; }
+.bk-ca-title { display: grid; gap: 0.45em; min-width: 0; }
+.bk-ca-caption { display: flex; align-items: center; gap: 1em; font-family: var(--bk-font-mono); font-size: 0.6875em; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bk-ca-soft); }
+.bk-ca-live { display: inline-flex; align-items: center; gap: 0.6em; }
+.bk-ca-total { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.1em 0.55em; }
+.bk-ca-num { font-size: 2.5em; font-weight: 450; line-height: 0.95; letter-spacing: -0.055em; font-variant-numeric: tabular-nums; color: var(--bk-ca-ink); }
+.bk-ca-unit { font-size: 0.875em; color: var(--bk-ca-soft); }
+.bk-ca-link { padding-bottom: 0.15em; font-size: 0.8125em; color: var(--bk-ca-ink); text-decoration: underline; text-decoration-color: rgba(9, 9, 11, 0.25); text-decoration-thickness: 1px; text-underline-offset: 0.25em; white-space: nowrap; }
+.bk-ca-link:hover { text-decoration-color: var(--bk-ca-ink); }
+.bk-ca-link:focus-visible,
+.bk-ca-month:focus-visible { outline-color: var(--bk-ca-ink); }
+
+/* The months: each a small calendar page, columns are weeks and rows are Sunday to Saturday. */
+.bk-ca-wall { container: bk-ca / inline-size; }
+/* Months always split into even rows: 12, 6, 4, 3 or 2 across, whichever fits. */
+.bk-ca-months { --bk-ca-n: var(--bk-ca-per, 6); display: grid; grid-template-columns: repeat(var(--bk-ca-n), var(--bk-ca-month-w)); justify-content: space-between; gap: 1em var(--bk-ca-gx); padding-top: 0.15em; }
+@container bk-ca (max-width: 59em) { .bk-contribution-almanac[data-per="12"] .bk-ca-months { --bk-ca-n: 6; } }
+@container bk-ca (max-width: 30.6em) { .bk-contribution-almanac:is([data-per="12"], [data-per="6"]) .bk-ca-months { --bk-ca-n: 4; } }
+@container bk-ca (max-width: 20.2em) { .bk-contribution-almanac:is([data-per="12"], [data-per="6"], [data-per="4"]) .bk-ca-months { --bk-ca-n: 3; } }
+@container bk-ca (max-width: 14.9em) { .bk-contribution-almanac:is([data-per="12"], [data-per="6"], [data-per="4"], [data-per="3"]) .bk-ca-months { --bk-ca-n: 2; } }
+.bk-ca-month { display: grid; gap: 0.45em; width: var(--bk-ca-month-w); border-radius: 0.2em; transition: opacity 220ms; }
+.bk-ca-months:hover .bk-ca-month:not(:hover) { opacity: 0.5; }
+.bk-ca-mhead { display: flex; align-items: baseline; justify-content: space-between; gap: 0.3em; }
+.bk-ca-mname { font-family: var(--bk-font-serif); font-size: 1.05em; font-style: italic; line-height: 1; color: var(--bk-ca-ink); }
+.bk-ca-mtotal { font-family: var(--bk-font-mono); font-size: 0.5625em; font-weight: 500; color: var(--bk-ca-soft); font-variant-numeric: tabular-nums; }
+.bk-ca-days { display: grid; grid-template-rows: repeat(7, var(--bk-ca-c)); grid-auto-flow: column; grid-auto-columns: var(--bk-ca-c); gap: var(--bk-ca-g); }
+
+/* A day: an empty one is a faint printed box, a busy one is stamped in ink, darker the busier. */
+.bk-ca-d { display: block; width: var(--bk-ca-c); height: var(--bk-ca-c); border-radius: 26%; transition: transform 200ms var(--bk-ease-lift); }
+.bk-ca-d[data-l="0"] { background: rgba(9, 9, 11, 0.06); box-shadow: inset 0 1px 1px rgba(9, 9, 11, 0.06); }
+.bk-ca-d[data-l="1"] { background: color-mix(in srgb, var(--bk-ca-a) 26%, var(--bk-paper)); }
+.bk-ca-d[data-l="2"] { background: color-mix(in srgb, var(--bk-ca-a) 50%, var(--bk-paper)); }
+.bk-ca-d[data-l="3"] { background: color-mix(in srgb, var(--bk-ca-a) 76%, var(--bk-paper)); }
+.bk-ca-d[data-l="4"] { background: var(--bk-ca-a); }
+.bk-ca-d[data-l="1"],
+.bk-ca-d[data-l="2"],
+.bk-ca-d[data-l="3"],
+.bk-ca-d[data-l="4"] { box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.22); }
+.bk-ca-d[data-future] { box-shadow: inset 0 0 0 1px rgba(9, 9, 11, 0.07); }
+.bk-ca-days > .bk-ca-d[data-k]:hover { position: relative; z-index: 1; transform: scale(1.55); box-shadow: 0 0 0 0.09em var(--bk-paper), 0 0.12em 0.3em rgba(9, 9, 11, 0.35); }
+
+/* The readout line and the legend. */
+.bk-ca-readout { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5em 1em; min-height: 1.6em; padding-top: 0.75em; border-top: 1px solid rgba(9, 9, 11, 0.12); }
+.bk-ca-say { min-width: 0; font-size: 0.8125em; color: var(--bk-ca-ink); font-variant-numeric: tabular-nums; }
+.bk-ca-legend { display: inline-flex; align-items: center; gap: 0.3em; font-family: var(--bk-font-mono); font-size: 0.5625em; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--bk-ca-soft); }
+.bk-ca-legend > .bk-ca-d { --bk-ca-c: 1.2em; }
+.bk-ca-legend > .bk-ca-d:first-of-type { margin-left: 0.35em; }
+.bk-ca-legend > .bk-ca-d:last-of-type { margin-right: 0.35em; }
+
+/* The numbers that matter. */
+.bk-ca-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.9em 1em; margin: 0; }
+@container bk-card (max-width: 26em) { .bk-ca-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.bk-ca-stats > div { display: grid; gap: 0.3em; min-width: 0; padding-left: 0.75em; border-left: 1px solid rgba(9, 9, 11, 0.12); }
+.bk-ca-stats dt { font-family: var(--bk-font-mono); font-size: 0.5625em; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bk-ca-soft); }
+.bk-ca-stats dd { margin: 0; overflow: hidden; font-size: 0.75em; white-space: nowrap; text-overflow: ellipsis; color: var(--bk-ca-soft); }
+.bk-ca-stats b { font-size: 1.75em; font-weight: 450; letter-spacing: -0.04em; color: var(--bk-ca-ink); font-variant-numeric: tabular-nums; }
+
+/* The signature moment: the days are stamped in, month by month, as the card comes into view. */
+.bk-contribution-almanac[data-phase="wait"] .bk-ca-days > .bk-ca-d[data-l] { opacity: 0; }
+.bk-contribution-almanac[data-phase="run"] .bk-ca-days > .bk-ca-d[data-l] { animation: bk-ca-stamp 520ms var(--bk-ease-lift) backwards; animation-delay: calc(var(--bk-m, 0) * 75ms); }
+@keyframes bk-ca-stamp { from { opacity: 0; transform: scale(1.8); } 40% { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .bk-ca-days > .bk-ca-d[data-k]:hover { transform: none; }
+}

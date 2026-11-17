@@ -49,7 +49,7 @@ To ship only one exhibit, import it by name: `import { NowPlaying } from "bragki
 | 006 | Open For Work | `OpenForWork` | A door sign that turns over |
 | 007 | Currently Reading | `CurrentlyReading` | A book that tilts out of the shelf to show its cover |
 | 008 | Coding Today | `CodingToday` | A fan deck of paint chips, one per language |
-| 009 | Contribution Tapestry | `ContributionTapestry` | Half a year of activity, woven |
+| 009 | Contribution Almanac | `ContributionAlmanac` | Your year of GitHub contributions, month by month, with streaks |
 | 010 | Trophy Case | `TrophyCase` | Enamel pins on felt that tilt toward the pointer |
 | 011 | Ship Log | `ShipLog` | A timeline with brass pins |
 | 012 | Stats Plaque | `StatsPlaque` | An engraved brass plaque that counts up |
@@ -98,6 +98,7 @@ Put `data-theme="dark"` on any ancestor for the dark theme, or pass `theme="dark
 Bragkit does not fetch, track or store anything by default. You pass the data.
 
 - `ShippingStreak` can read a GitHub user's public pushes when you give it `user` (no key).
+- `ContributionAlmanac` can load a GitHub user's contributions for the last year when you give it `user`. The data comes from github-contributions-api.jogruber.de, a free public service run by a third party (no key). Or pass your own `data`.
 - `LocalTime` reads the visitor's clock.
 - `VisitorsBook` hands each new signature to your `onSign` function. Where you save it is up to you.
 - Anything that needs a secret (live Spotify, private analytics) belongs on your server. Pass the result in as props.
