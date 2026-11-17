@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { findLogo, isPale, logoKey, shortName, withLogos } from "./logic";
+import { findLogo, isPale, logoKey, shortName, toGroups, withLogo } from "./logic";
 import * as logos from "./logos";
 
 describe("findLogo", () => {
@@ -11,6 +11,7 @@ describe("findLogo", () => {
     expect(findLogo("postgresql")?.name).toBe("PostgreSQL");
     expect(findLogo("C++")?.name).toBe("C++");
     expect(findLogo("k8s")?.name).toBe("Kubernetes");
+    expect(findLogo("golang")?.name).toBe("Go");
   });
 
   it("returns nothing for a tool it does not have", () => {
@@ -20,9 +21,9 @@ describe("findLogo", () => {
 });
 
 describe("the built-in logos", () => {
-  it("are each one path and one six-digit colour", () => {
+  it("are each one path and one six-digit colour, and there are plenty", () => {
     const all = Object.values(logos);
-    expect(all.length).toBeGreaterThan(40);
+    expect(all.length).toBeGreaterThan(150);
     for (const logo of all) {
       expect(logo.path, logo.name).toMatch(/^[Mm]/);
       expect(logo.hex, logo.name).toMatch(/^[0-9A-F]{6}$/);
@@ -37,16 +38,17 @@ describe("logoKey and shortName", () => {
     expect(logoKey("C#")).toBe("csharp");
   });
 
-  it("makes two letters for a tool with no logo", () => {
+  it("makes key letters for a tool with no logo", () => {
     expect(shortName("Made Up Tool")).toBe("MU");
     expect(shortName("Zig")).toBe("Zi");
-    expect(shortName("!")).toBe("!");
+    expect(shortName("AWS")).toBe("AWS");
+    expect(shortName("C#")).toBe("C#");
   });
 });
 
 describe("isPale", () => {
-  it("spots colours that would vanish on a white mat", () => {
-    expect(isPale("00FF74")).toBe(true);
+  it("spots colours that would vanish on a cream keycap", () => {
+    expect(isPale("F7DF1E")).toBe(true);
     expect(isPale("FFFFFF")).toBe(true);
     expect(isPale("3178C6")).toBe(false);
     expect(isPale("000000")).toBe(false);
@@ -54,13 +56,17 @@ describe("isPale", () => {
   });
 });
 
-describe("withLogos", () => {
+describe("withLogo and toGroups", () => {
   it("fills in logos for names and leaves your own items alone", () => {
-    const [a, b, c] = withLogos(["react", { name: "Mine", src: "/mine.svg" }, { name: "Go", href: "https://go.dev" }]);
-    expect(a.name).toBe("React");
-    expect(a.path).toBe(logos.react.path);
-    expect(b).toEqual({ name: "Mine", src: "/mine.svg" });
-    expect(c.href).toBe("https://go.dev");
-    expect(c.path).toBe(logos.go.path);
+    expect(withLogo("react").name).toBe("React");
+    expect(withLogo("react").path).toBe(logos.react.path);
+    expect(withLogo({ name: "Mine", src: "/mine.svg" })).toEqual({ name: "Mine", src: "/mine.svg" });
+    expect(withLogo({ name: "Go", wide: true }).wide).toBe(true);
+  });
+
+  it("keeps rows in the order they first appear", () => {
+    const rows = toGroups([{ name: "a", group: "B" }, { name: "b" }, { name: "c", group: "B" }], undefined);
+    expect(rows.map((r) => r.label)).toEqual(["B", undefined]);
+    expect(rows[0].items.map((i) => i.name)).toEqual(["a", "c"]);
   });
 });

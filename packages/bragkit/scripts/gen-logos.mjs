@@ -4,62 +4,42 @@
 import { writeFileSync } from "node:fs";
 import * as icons from "simple-icons";
 
-// export name -> Simple Icons slug. Keep the heavy ones out: every logo here ships to people
-// who use <TechStack> with names.
-const LIST = {
-  typescript: "typescript",
-  javascript: "javascript",
-  react: "react",
-  nextjs: "nextdotjs",
-  vue: "vuedotjs",
-  svelte: "svelte",
-  astro: "astro",
-  angular: "angular",
-  solid: "solid",
-  remix: "remix",
-  nodejs: "nodedotjs",
-  deno: "deno",
-  bun: "bun",
-  python: "python",
-  rust: "rust",
-  go: "go",
-  php: "php",
-  ruby: "ruby",
-  swift: "swift",
-  kotlin: "kotlin",
-  dart: "dart",
-  cplusplus: "cplusplus",
-  dotnet: "dotnet",
-  postgres: "postgresql",
-  mysql: "mysql",
-  sqlite: "sqlite",
-  mongodb: "mongodb",
-  redis: "redis",
-  supabase: "supabase",
-  firebase: "firebase",
-  prisma: "prisma",
-  graphql: "graphql",
-  tailwind: "tailwindcss",
-  sass: "sass",
-  html: "html5",
-  css: "css",
-  vite: "vite",
-  vitest: "vitest",
-  docker: "docker",
-  kubernetes: "kubernetes",
-  git: "git",
-  github: "github",
-  vercel: "vercel",
-  netlify: "netlify",
-  cloudflare: "cloudflare",
-  figma: "figma",
-  flutter: "flutter",
-  django: "django",
-  rails: "rubyonrails",
-  stripe: "stripe",
-  expo: "expo",
-  tensorflow: "tensorflow",
-  pytorch: "pytorch",
+// Simple Icons slugs. Grouped only to keep the list readable.
+const SLUGS = `
+  typescript javascript python rust go kotlin swift dart cplusplus c php ruby elixir scala haskell lua zig r
+  julia solidity ocaml clojure perl gnubash html5 css sass less graphql markdown
+  react nextdotjs vuedotjs nuxt svelte astro angular solid remix gatsby qwik preact alpinedotjs htmx jquery
+  threedotjs gsap framer redux reactquery reactrouter tailwindcss bootstrap mui chakraui shadcnui radixui
+  styledcomponents nodedotjs deno bun express nestjs fastify hono django flask fastapi rubyonrails laravel
+  spring springboot dotnet expo flutter electron tauri ionic
+  postgresql mysql sqlite mongodb redis supabase firebase prisma drizzle planetscale neon elasticsearch
+  apachekafka rabbitmq clickhouse cockroachlabs
+  docker kubernetes terraform ansible git github gitlab bitbucket githubactions jenkins circleci vercel
+  netlify cloudflare digitalocean railway render flydotio googlecloud nginx linux ubuntu debian archlinux
+  apple android
+  figma sketch blender notion discord jira linear obsidian postman insomnia neovim vim jetbrains webstorm
+  intellijidea vite webpack esbuild rollupdotjs babel eslint prettier biome turborepo nx pnpm npm yarn
+  vitest jest cypress storybook testinglibrary sentry datadog grafana prometheus
+  anthropic huggingface pytorch tensorflow scikitlearn pandas numpy jupyter langchain
+  stripe shopify wordpress sanity contentful strapi unity unrealengine godotengine webassembly trpc zod
+`
+  .trim()
+  .split(/\s+/);
+
+// Export names that read better than the slug.
+const RENAME = {
+  nextdotjs: "nextjs",
+  nodedotjs: "nodejs",
+  vuedotjs: "vue",
+  alpinedotjs: "alpinejs",
+  threedotjs: "threejs",
+  rollupdotjs: "rollup",
+  flydotio: "flyio",
+  postgresql: "postgres",
+  tailwindcss: "tailwind",
+  html5: "html",
+  rubyonrails: "rails",
+  gnubash: "bash",
 };
 
 const lines = [
@@ -76,14 +56,18 @@ const lines = [
   "}",
   "",
 ];
-let bytes = 0;
-for (const [name, slug] of Object.entries(LIST)) {
+const missing = [];
+let count = 0;
+for (const slug of SLUGS) {
   const icon = icons[`si${slug[0].toUpperCase()}${slug.slice(1)}`];
-  if (!icon) throw new Error(`Simple Icons has no "${slug}"`);
-  bytes += icon.path.length;
+  if (!icon) {
+    missing.push(slug);
+    continue;
+  }
+  count += 1;
   lines.push(
-    `export const ${name}: Logo = { name: ${JSON.stringify(icon.title)}, hex: "${icon.hex}", path: ${JSON.stringify(icon.path)} };`,
+    `export const ${RENAME[slug] ?? slug}: Logo = { name: ${JSON.stringify(icon.title)}, hex: "${icon.hex}", path: ${JSON.stringify(icon.path)} };`,
   );
 }
 writeFileSync("src/exhibits/tech-stack/logos.ts", `${lines.join("\n")}\n`);
-console.log(`wrote ${Object.keys(LIST).length} logos, ${(bytes / 1024).toFixed(1)} KB of path data`);
+console.log(`wrote ${count} logos${missing.length ? `; not in Simple Icons: ${missing.join(", ")}` : ""}`);

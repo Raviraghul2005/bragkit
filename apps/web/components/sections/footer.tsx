@@ -9,7 +9,7 @@ const columns: { title: string; links: [string, string][] }[] = [
       ["Shipping Streak", "/exhibits#streak"],
       ["Local Time", "/exhibits#local-time"],
       ["Status Card", "/exhibits#status-card"],
-      ["Tech Stack Shelf", "/exhibits#tech-stack"],
+      ["Tech Stack Keyboard", "/exhibits/tech-stack"],
     ],
   },
   {

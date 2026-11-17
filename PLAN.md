@@ -25,7 +25,7 @@ Done:
 | 002 | Shipping Streak | East | `ShippingStreak` | client |
 | 003 | Local Time | East | `LocalTime` | client |
 | 004 | Status Card | East | `StatusCard` | client |
-| 005 | Tech Stack Shelf | West | `TechStack`, `TechShelf` | server |
+| 005 | Tech Stack Keyboard | West | `TechStack`, `TechKeyboard` | server |
 | 006 | Open For Work | East | `OpenForWork` | client |
 | 007 | Currently Reading | East | `CurrentlyReading` | server |
 | 008 | Coding Today | East | `CodingToday` | server |

@@ -37,6 +37,7 @@ The running record of the Collection Build (see `COLLECTION.md`). If a session s
 - `Streak` is now `ShippingStreak` (`Streak` stays as an alias). `hour12` on LocalTime became `format="12h" | "24h"`.
 
 - **Tech Stack Shelf shows real logos (owner's request, 15 Nov).** The lettered blocks were rejected. It is now small framed logos on a picture ledge. The logo data comes from Simple Icons (CC0-1.0), copied into `src/exhibits/tech-stack/logos.ts` by `scripts/gen-logos.mjs`; `simple-icons` is a dev dependency only, so there is still no runtime dependency. Logos are drawn unaltered in the brand's own colour, inside the exhibit that is about those tools. Cost: the 53 built-in logos are about 25 KB gzipped, well over the 4 KB target. They never reach the browser when TechStack is used as a server component (Next.js App Router). For the small path there is `TechShelf` plus single logos from `bragkit/logos`.
+- **Tech Stack, third version: a keyboard (owner's request, 18 Nov).** The framed logos on a ledge did not work once someone has many tools. Now every tool is a keycap with its logo printed on it, in rows by group, with wide keys for main tools. Pressing a key sends it down and types its name onto a small screen in the case. The screen is pure CSS (each key carries its own screen text, laid over the real screen), so it stays a server component. 178 built-in logos. Logos too pale for a cream key (JavaScript, React, Linux) get a dark key instead of being recoloured. Cost: all logos together are 91.5 KB gzipped if the exhibit runs in the browser; nothing in a server component. `TechKeyboard` plus single logos from `bragkit/logos` is the small path. `TechShelf` is gone. Ideas held back: a shadow board (tools hung on a pegboard with painted outlines) and a specimen drawer (logos pinned like a museum collection).
 - **The landing page reads the registry.** The hero frames and the highlights use each exhibit's example data, so adding or rebuilding an exhibit needs no site edits.
 - **Client chunks.** The build output is split into shared chunks, so `scripts/finish-build.mjs` marks every chunk that defines a client component or uses browser-only hooks with `"use client"`. Static exhibits (Now Playing, Tech Stack) stay server components.
 
@@ -50,7 +51,7 @@ Scores are for the eight questions in the quality bar, in order (screenshot-wort
 | 002 | Shipping Streak | done | 4 4 4 4.5 4.5 5 4 5 | 1.9 KB | 0.7 KB | Wall is drawn in the browser (needs the visitor's date). GitHub mode is the only live path. |
 | 003 | Local Time | done | 5 5 4 5 4.5 4.5 4.5 5 | 1.9 KB | 1.1 KB | Sky follows the clock, not real sunrise times. `at` fixes the moment for demos and tests. |
 | 004 | Status Card | done | 5 5 4.5 5 4.5 4 5 4.5 | 1.5 KB | 0.7 KB | Departures board. Flips when it scrolls into view and when the title changes. |
-| 005 | Tech Stack Shelf | done (redone once) | 4.5 4.5 4 5 4.5 5 5 5 | 25.8 KB with all logos | 0.8 KB | Real logos, see Decisions. Drag to reorder not built. |
+| 005 | Tech Stack Keyboard | done (third version) | 5 5 4.5 5 4.5 5 4.5 5 | 91.5 KB with all logos | 1.6 KB | Rebuilt as a keyboard on 18 Nov, see Decisions. Server component. |
 | 006 | Open For Work | done | 5 5 5 4.5 4.5 5 5 5 | 0.8 KB | 1.2 KB | Door sign. Turning it is local to the visitor. |
 | 007 | Currently Reading | done | 4.5 4.5 4.5 4.5 4 5 5 4.5 | 0.8 KB | 1.4 KB | Built in the second pass (16 Nov). A real 3D box: the cover is the side of the spine. No cover image. Server component. |
 | 008 | Coding Today | done (one redesign round) | 4.5 5 4.5 4.5 4 5 5 4.5 | 0.9 KB | 0.8 KB | Labels moved to the far end of each chip so they show when the deck fans. Server component. |
@@ -90,7 +91,6 @@ The scores are my own reading of the screenshots. Question 3 (smooth at 60 fps) 
 ## Skipped or cut
 
 - Nothing from the list of 21 is skipped now. 007, 014 and 018 were left out of the first pass and built in a second one on 16 Nov, at the owner's request.
-- **Drag to reorder** on the Tech Stack Shelf (marked optional in the brief).
 - **`since` on the Status Card** (week counter) was dropped; `note` covers it.
 - **The `variant="bare"` prop** of the old widgets is gone. Exhibits are objects, not cards with an optional frame.
 - **A site-wide dark switch.** The exhibits and their rooms have dark.
@@ -109,6 +109,6 @@ The scores are my own reading of the screenshots. Question 3 (smooth at 60 fps) 
 - Live Spotify for Now Playing: needs a secret, so it is a server adapter, not a browser feature.
 - Weather window (a sibling of Local Time), "on repeat" record crate, career timeline, coffee counter, uses page.
 - A bundled single-stroke script font for the Signature, so it looks the same everywhere.
-- More logos for the Tech Stack Shelf, and logos loaded one by one so the built-in set costs less.
-- Drag to reorder on the Tech Stack Shelf.
+- A cheaper way to ship the Tech Stack's built-in logos when it runs in the browser (load only the ones used).
+- Tech Stack alternatives: a shadow board, a specimen drawer.
 - A site-wide dark switch.

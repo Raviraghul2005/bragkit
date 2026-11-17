@@ -8,7 +8,7 @@ const entry: Record<string, string> = {
   registry: "src/registry.ts",
   primitives: "src/primitives/index.ts",
   "brass-plate": "src/primitives/BrassPlate.tsx",
-  // Single logos for <TechShelf>: import { react } from "bragkit/logos".
+  // Single logos for <TechKeyboard>: import { react } from "bragkit/logos".
   logos: "src/exhibits/tech-stack/logos.ts",
 };
 for (const dir of readdirSync("src/exhibits", { withFileTypes: true })) {

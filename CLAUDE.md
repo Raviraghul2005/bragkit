@@ -108,7 +108,7 @@ The curator: dry, short, quietly proud. Museum words for normal things: exhibits
 
 - Works at phone width (single column), keyboard reachable, visible focus ring, text contrast 4.5:1.
 - Real `<button>` and `<a>` elements. Icons are 1.5px line icons (Lucide style).
-- No third-party logos, with one exception the owner asked for: the Tech Stack Shelf shows the real logos of the tools on it, unaltered and in their brand colour (data from Simple Icons, CC0). Nowhere else. No real album art and no photos of real people.
+- No third-party logos, with one exception the owner asked for: the Tech Stack Keyboard shows the real logos of the tools on it, unaltered and in their brand colour (data from Simple Icons, CC0). A logo too pale for a cream key gets a dark key; the logo is never recoloured. Nowhere else. No real album art and no photos of real people.
 - Demo data on the site comes from each exhibit's `example` in its `meta.ts`. It is invented and must not be presented as the maintainer's own. The live dot and the word "Live" appear only for data that is live.
 - Every exhibit is one real-world object with one signature moment. Check new ones against the quality bar in `COLLECTION.md` and record the scores in `COLLECTION-LOG.md`.
 

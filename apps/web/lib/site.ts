@@ -25,7 +25,7 @@ export const currentBuild = {
   progress: 67,
 };
 
-/** Bragkit's own tools, for the demo Tech Stack Shelf. */
+/** Bragkit's own tools. */
 export const ownStack = ["TypeScript", "React", "Next.js", "Vitest", "Vercel"];
 
 /** The track on display in every Now Playing demo. Static in v1: no Spotify, no keys. */

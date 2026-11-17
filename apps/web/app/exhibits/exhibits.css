@@ -614,6 +614,7 @@
 
 .sheet-cell {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   justify-items: center;
   gap: var(--space-8);
   min-width: 0;

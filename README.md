@@ -45,7 +45,7 @@ To ship only one exhibit, import it by name: `import { NowPlaying } from "bragki
 | 002 | Shipping Streak | `ShippingStreak` | A wall of glazed tiles, one per day |
 | 003 | Local Time | `LocalTime` | An arched window with the sky of the hour behind it |
 | 004 | Status Card | `StatusCard` | A split-flap departures board |
-| 005 | Tech Stack Shelf | `TechStack` | Framed logos on a picture ledge |
+| 005 | Tech Stack Keyboard | `TechStack` | A keyboard where every key is a tool, with its logo |
 | 006 | Open For Work | `OpenForWork` | A door sign that turns over |
 | 007 | Currently Reading | `CurrentlyReading` | A book that tilts out of the shelf to show its cover |
 | 008 | Coding Today | `CodingToday` | A fan deck of paint chips, one per language |
@@ -102,15 +102,28 @@ Bragkit does not fetch, track or store anything by default. You pass the data.
 - `VisitorsBook` hands each new signature to your `onSign` function. Where you save it is up to you.
 - Anything that needs a secret (live Spotify, private analytics) belongs on your server. Pass the result in as props.
 
-## Tech Stack logos
+## The Tech Stack Keyboard
 
-`TechStack` draws real logos for about fifty common tools. The logo data comes from [Simple Icons](https://simpleicons.org) (CC0). The logos are trademarks of their owners and are shown unaltered. They add about 25 KB (gzipped) when the component runs in the browser; in a server component they add nothing. For the small path, use `TechShelf` with single logos:
+Every tool is a key with its real logo printed on it. Give it names, or rows of names, and mark your main tools `wide`:
 
 ```tsx
-import { TechShelf } from "bragkit"
+<TechStack
+  groups={{
+    Languages: [{ name: "TypeScript", wide: true, note: "daily" }, "Rust", "Go"],
+    Tools: ["Git", "Docker", "Postgres", "Figma"],
+  }}
+/>
+```
+
+About 175 tools have a built-in logo. Anything else gets letters, like a keyboard legend, or your own `icon` or `src`.
+
+The logo data comes from [Simple Icons](https://simpleicons.org) (CC0). The logos are trademarks of their owners and are shown unaltered; a logo too pale for a cream key gets a dark key instead of a new colour. All the built-in logos together are about 92 KB (gzipped). In a server component (the default in the Next.js App Router) that costs the browser nothing. If it runs in the browser, use `TechKeyboard` with only the logos you need:
+
+```tsx
+import { TechKeyboard } from "bragkit"
 import { react, typescript } from "bragkit/logos"
 
-<TechShelf items={[typescript, react]} />
+<TechKeyboard items={[{ ...typescript, wide: true }, react]} />
 ```
 
 ## Building blocks
