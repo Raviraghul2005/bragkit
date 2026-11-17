@@ -1,0 +1,56 @@
+/* bragkit primitives: the gallery building blocks. */
+
+/* Case: the candy gradient card with a tinted shadow and a lit top edge. */
+.bk-case { padding: 1.75em; border-radius: 1.75em; border: 1px solid var(--bk-t-edge); color: var(--bk-fg); background: linear-gradient(var(--bk-t-top), var(--bk-t)); box-shadow: inset 0 1px 0 var(--bk-t-rim), inset 0 -2px 8px rgba(0, 0, 0, 0.05), 0 2px 4px -1px var(--bk-t-shade), 0 1.9em 3.1em -1.4em var(--bk-t-shade); }
+
+/* Placard: the museum label. */
+.bk-placard { display: inline-grid; gap: 0.3em; min-width: 9em; max-width: 19em; padding: 0.8em 1em 0.9em; border: 1px solid var(--bk-hairline); border-radius: var(--bk-radius-placard); background: linear-gradient(var(--bk-plinth), var(--bk-plinth-shade)); box-shadow: var(--bk-shadow-placard); }
+.bk-placard-title { font-family: var(--bk-font-serif); font-size: 1.375em; font-style: italic; line-height: 1.1; color: var(--bk-ink); }
+.bk-placard-medium { font-size: 0.75em; line-height: 1.35; color: var(--bk-ink-soft); }
+.bk-placard-note { margin-top: 0.25em; font-size: 0.8125em; line-height: 1.4; color: var(--bk-ink-soft); }
+
+/* Plinth: the object stands on a contact shadow and lifts when touched. */
+.bk-plinth { display: inline-block; padding-bottom: 0.7em; }
+.bk-plinth-obj { position: relative; z-index: 1; display: block; transition: transform var(--bk-dur-lift) var(--bk-ease-lift); }
+.bk-plinth::after { content: ""; position: absolute; left: 6%; right: 6%; bottom: 0; height: 1.5em; border-radius: 50%; background: radial-gradient(closest-side, var(--bk-contact), transparent); transition: transform var(--bk-dur-lift) var(--bk-ease-lift), opacity var(--bk-dur-lift); }
+.bk-plinth:hover .bk-plinth-obj,
+.bk-plinth:focus-within .bk-plinth-obj { transform: translateY(-0.625em); }
+.bk-plinth:hover::after,
+.bk-plinth:focus-within::after { transform: scale(0.82); opacity: 0.6; }
+
+/* Hang: the object hangs from a brass nail on a wire and sways. */
+.bk-hang { display: inline-flex; flex-direction: column; align-items: center; transform-origin: 50% 0.375em; animation: bk-sway var(--bk-sway-dur, 7s) ease-in-out infinite alternate; }
+.bk-hang-nail { position: relative; z-index: 2; flex: none; width: 0.75em; height: 0.75em; border-radius: 50%; background: radial-gradient(circle at 35% 30%, var(--bk-brass-hi), var(--bk-brass-lo) 80%); box-shadow: 0 1px 2px rgba(51, 37, 10, 0.5); }
+.bk-hang-wire { flex: none; width: 1.5px; height: var(--bk-drop, 96px); margin-top: -0.2em; background: linear-gradient(#71717b, var(--bk-ink-faint)); }
+.bk-hang-obj { position: relative; display: block; }
+@keyframes bk-sway { from { transform: rotate(calc(var(--bk-sway, 1.5deg) * -1)); } to { transform: rotate(var(--bk-sway, 1.5deg)); } }
+
+/* Brass plate: an engraved button with two screws and one shine sweep. */
+.bk-plate { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; width: auto; height: 3em; padding: 0 2.3em; border-radius: var(--bk-radius-plate); color: var(--bk-on-brass); font-family: var(--bk-font-mono); font-weight: 500; white-space: nowrap; background: linear-gradient(180deg, var(--bk-brass-hi) 0%, var(--bk-brass-mid) 42%, var(--bk-brass-mid) 60%, var(--bk-brass-lo) 100%); box-shadow: var(--bk-shadow-plate); text-shadow: 0 1px 0 rgba(255, 246, 214, 0.6); transition: transform var(--bk-dur-press); }
+button.bk-plate { cursor: pointer; }
+.bk-plate:active { transform: translateY(1px); }
+.bk-plate-text { font-size: 0.9375em; }
+.bk-plate::before,
+.bk-plate::after { content: ""; position: absolute; top: 50%; width: 0.44em; height: 0.44em; margin-top: -0.22em; border-radius: 50%; background: radial-gradient(circle at 35% 30%, var(--bk-brass-hi), var(--bk-brass-lo) 80%); box-shadow: inset 0 -1px 1px rgba(51, 37, 10, 0.4), 0 1px 0 rgba(255, 246, 214, 0.6); }
+.bk-plate::before { left: 0.8em; }
+.bk-plate::after { right: 0.8em; }
+.bk-shine { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(105deg, transparent 35%, rgba(255, 252, 238, 0.6) 50%, transparent 65%); transform: translateX(-120%); }
+.bk-plate:hover .bk-shine,
+.bk-plate:focus-visible .bk-shine { transform: translateX(120%); transition: transform var(--bk-dur-unveil) var(--bk-ease-unveil); }
+
+/* Medal: the small brass count chip. */
+.bk-medal { display: inline-flex; align-items: center; justify-content: center; gap: 0.35em; width: auto; min-width: 1.8em; height: 1.8em; padding: 0 0.6em; border-radius: 999px; color: var(--bk-on-brass); font-family: var(--bk-font-mono); font-size: calc(12px * var(--bk-scale, 1)); font-weight: 500; line-height: 1; white-space: nowrap; background: var(--bk-brass-face); box-shadow: inset 0 1px 0 rgba(255, 250, 230, 0.9), 0 1px 1px rgba(60, 40, 0, 0.25); text-shadow: 0 1px 0 rgba(255, 246, 214, 0.5); }
+
+/* Live dot: live data only, always beside a word. */
+.bk-live { display: inline-flex; align-items: center; gap: 0.6em; width: auto; font-family: var(--bk-font-mono); font-size: calc(11px * var(--bk-scale, 1)); font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--bk-ink-soft); }
+.bk-live-dot { flex: none; width: 0.64em; height: 0.64em; border-radius: 50%; background: var(--bk-live); box-shadow: 0 0 0 0.27em var(--bk-live-halo); animation: bk-breathe 2.4s ease-in-out infinite; }
+@keyframes bk-breathe { 50% { box-shadow: 0 0 0 0.55em var(--bk-live-halo); opacity: 0.75; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .bk-plinth:hover .bk-plinth-obj,
+  .bk-plinth:focus-within .bk-plinth-obj,
+  .bk-plinth:hover::after,
+  .bk-plinth:focus-within::after { transform: none; opacity: 1; }
+  .bk-plate:hover .bk-shine,
+  .bk-plate:focus-visible .bk-shine { transform: translateX(-120%); }
+}

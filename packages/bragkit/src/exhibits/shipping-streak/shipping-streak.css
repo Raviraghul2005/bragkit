@@ -1,0 +1,27 @@
+/* No. 002 Shipping Streak: a wall of glazed tiles, one per day. */
+.bk-shipping-streak { display: grid; gap: 0.75em; width: 15.5em; padding: 1.25em; border-radius: 1.4em; }
+.bk-ss-head { justify-content: space-between; }
+.bk-ss-live { display: inline-flex; align-items: center; gap: 0.6em; }
+
+.bk-ss-count { display: flex; align-items: baseline; gap: 0.5em; color: var(--bk-fg-soft); }
+.bk-ss-num { font-size: 3.5em; font-weight: 450; line-height: 0.9; letter-spacing: -0.06em; font-variant-numeric: tabular-nums; color: var(--bk-fg); }
+.bk-ss-unit { font-size: 0.9375em; }
+
+.bk-ss-wall { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0.34em; margin-top: 0.15em; }
+/* An empty day is a socket in the wall; a shipped day is a glazed tile standing proud of it. */
+.bk-ss-tile { aspect-ratio: 1; border-radius: 26%; background: color-mix(in srgb, var(--bk-fg) 7%, transparent); box-shadow: inset 0 1px 2px color-mix(in srgb, var(--bk-fg) 22%, transparent), 0 1px 0 var(--bk-t-rim); transition: transform var(--bk-dur-lift) var(--bk-ease-lift), box-shadow var(--bk-dur-lift); }
+.bk-ss-tile[data-on] { background: linear-gradient(color-mix(in srgb, var(--bk-a) 72%, #fff), var(--bk-a)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), inset 0 -1px 0 rgba(0, 0, 0, 0.14), 0 1px 2px var(--bk-t-shade), 0 0.3em 0.5em -0.25em var(--bk-t-shade); }
+.bk-ss-tile[data-today] { z-index: 1; }
+.bk-ss-tile[data-today][data-on] { background: linear-gradient(var(--bk-night-top), var(--bk-night)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 1px 2px var(--bk-t-shade), 0 0.3em 0.5em -0.25em var(--bk-t-shade); animation: bk-ss-pulse 900ms var(--bk-ease-settle) 250ms backwards; }
+.bk-ss-tile[data-today]:not([data-on]) { box-shadow: inset 0 0 0 1.5px var(--bk-fg-soft); }
+@keyframes bk-ss-pulse {
+  from { transform: scale(0.4); box-shadow: 0 0 0 0 color-mix(in srgb, var(--bk-night) 60%, transparent); }
+  55% { transform: scale(1.22); box-shadow: 0 0 0 0.5em transparent; }
+}
+
+.bk-ss-tile:hover { z-index: 2; transform: translateY(-0.28em) scale(1.08); }
+.bk-ss-tile[data-on]:hover { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), inset 0 -1px 0 rgba(0, 0, 0, 0.14), 0 0.6em 0.8em -0.35em var(--bk-t-shade), 0 1em 1.2em -0.7em var(--bk-t-shade); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bk-ss-tile:hover { transform: none; }
+}

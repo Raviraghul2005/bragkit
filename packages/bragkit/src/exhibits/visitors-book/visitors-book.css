@@ -1,0 +1,54 @@
+/* No. 019 Visitors' Book: an open guest book. New signatures write themselves in; pages turn. */
+.bk-visitors-book { --bk-vb-row: 3.25em; display: grid; gap: 0.9em; width: 18em; }
+
+/* The cover shows as a thin edge around the pages. */
+.bk-vb-book { position: relative; display: grid; grid-template-columns: 1fr 1fr; padding: 0.3em 0.34em 0.36em; border-radius: 0.5em; perspective: 60em; background: linear-gradient(color-mix(in srgb, var(--bk-a) 88%, #fff), color-mix(in srgb, var(--bk-a) 82%, #000)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2), 0 1.2em 1.8em -0.9em var(--bk-shade), 0 2.6em 3.2em -1.9em var(--bk-shade); }
+.bk-visitors-book[data-tone="plain"] .bk-vb-book { background: linear-gradient(var(--bk-night-top), var(--bk-night)); }
+
+/* Ruled paper, darker toward the gutter where the pages curve down into the spine. */
+.bk-vb-page { display: grid; grid-auto-rows: var(--bk-vb-row); padding: 0.55em 1em 0.3em 0.8em; color: var(--bk-on-case);
+  background:
+    repeating-linear-gradient(transparent 0 calc(var(--bk-vb-row) - 1px), rgba(9, 9, 11, 0.12) calc(var(--bk-vb-row) - 1px) var(--bk-vb-row)) 0 0.55em / 100% 100% no-repeat,
+    linear-gradient(90deg, var(--bk-paper) 72%, var(--bk-paper-shade) 92%, color-mix(in srgb, var(--bk-paper-shade) 80%, #000)); }
+.bk-vb-left { border-radius: 0.28em 0 0 0.28em; box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.8), -1px 0 0 rgba(255, 255, 255, 0.5), -2px 0 0 rgba(0, 0, 0, 0.12); }
+.bk-vb-right { padding: 0.55em 0.8em 0.3em 1.25em; border-radius: 0 0.28em 0.28em 0;
+  background:
+    repeating-linear-gradient(transparent 0 calc(var(--bk-vb-row) - 1px), rgba(9, 9, 11, 0.12) calc(var(--bk-vb-row) - 1px) var(--bk-vb-row)) 0 0.55em / 100% 100% no-repeat,
+    linear-gradient(270deg, var(--bk-paper) 72%, var(--bk-paper-shade) 92%, color-mix(in srgb, var(--bk-paper-shade) 80%, #000));
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.8), 1px 0 0 rgba(255, 255, 255, 0.5), 2px 0 0 rgba(0, 0, 0, 0.12); }
+
+.bk-vb-entry { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-content: end; align-items: baseline; column-gap: 0.4em; min-width: 0; padding-bottom: 0.3em; }
+.bk-vb-name { grid-column: 1 / -1; overflow: hidden; font-family: var(--bk-font-script); font-size: 1.02em; font-style: italic; line-height: 1.25; white-space: nowrap; text-overflow: ellipsis; color: var(--bk-cobalt-deep); }
+.bk-vb-note { overflow: hidden; font-size: 0.625em; line-height: 1.3; white-space: nowrap; text-overflow: ellipsis; color: var(--bk-on-case-soft); }
+.bk-vb-date { font-family: var(--bk-font-mono); font-size: 0.5em; letter-spacing: 0.04em; line-height: 1.6; text-transform: uppercase; white-space: nowrap; color: var(--bk-on-case-soft); }
+/* A signature added just now is written in, left to right. */
+.bk-vb-entry[data-fresh] > span { animation: bk-vb-write 1300ms var(--bk-ease-unveil) backwards; }
+.bk-vb-entry[data-fresh] > .bk-vb-note { animation-delay: 700ms; animation-duration: 800ms; }
+.bk-vb-entry[data-fresh] > .bk-vb-date { animation-delay: 1200ms; animation-duration: 400ms; }
+@keyframes bk-vb-write { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+
+.bk-vb-empty { position: absolute; left: 0; width: 50%; top: 42%; padding: 0 0.8em; font-family: var(--bk-font-serif); font-size: 1.1em; font-style: italic; line-height: 1.15; text-align: center; color: var(--bk-on-case-soft); }
+.bk-vb-ribbon { position: absolute; left: calc(50% + 0.28em); top: 0.1em; bottom: -0.75em; width: 0.42em; background: linear-gradient(90deg, var(--bk-a), color-mix(in srgb, var(--bk-a) 78%, #000)); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% calc(100% - 0.3em), 0 100%); box-shadow: 1px 0 1px rgba(0, 0, 0, 0.2); }
+.bk-visitors-book[data-tone="plain"] .bk-vb-ribbon { background: linear-gradient(90deg, var(--bk-rose-deep), #a82c5c); }
+
+/* The page that turns: a blank leaf that swings across the spine. */
+.bk-vb-leaf { position: absolute; top: 0.3em; bottom: 0.36em; width: calc(50% - 0.34em); opacity: 0; pointer-events: none; background: linear-gradient(90deg, var(--bk-paper-shade), var(--bk-paper) 30%); box-shadow: 0 0 0.6em rgba(0, 0, 0, 0.25); }
+.bk-vb-leaf[data-turn="next"] { left: 50%; transform-origin: 0 50%; border-radius: 0 0.28em 0.28em 0; animation: bk-vb-next 620ms var(--bk-ease-unveil); }
+.bk-vb-leaf[data-turn="prev"] { right: 50%; transform-origin: 100% 50%; border-radius: 0.28em 0 0 0.28em; animation: bk-vb-prev 620ms var(--bk-ease-unveil); }
+@keyframes bk-vb-next { from { opacity: 1; transform: rotateY(0deg); } 99% { opacity: 1; transform: rotateY(-180deg); } }
+@keyframes bk-vb-prev { from { opacity: 1; transform: rotateY(0deg); } 99% { opacity: 1; transform: rotateY(180deg); } }
+
+.bk-vb-bar { --bk-fg-soft: var(--bk-ink-soft); display: flex; align-items: center; justify-content: space-between; gap: 0.7em; min-height: 1.7em; padding: 0 0.3em; }
+.bk-vb-count { padding: 0.15em 0.55em; border-radius: 1em; background: color-mix(in srgb, var(--bk-ink) 8%, transparent); color: var(--bk-ink); font-variant-numeric: tabular-nums; }
+.bk-vb-pager { display: inline-flex; align-items: center; gap: 0.5em; font-family: var(--bk-font-mono); font-size: 0.6875em; color: var(--bk-ink-soft); font-variant-numeric: tabular-nums; }
+.bk-vb-pager button { width: 2.2em; height: 2.2em; border-radius: 50%; border: 1px solid var(--bk-hairline); background: linear-gradient(var(--bk-plinth), var(--bk-plinth-shade)); box-shadow: var(--bk-shadow-placard); font-family: var(--bk-font-sans); font-size: 1.15em; line-height: 1; text-align: center; color: var(--bk-ink); transition: transform var(--bk-dur-press); }
+.bk-vb-pager button:active { transform: translateY(1px); }
+.bk-vb-pager button:disabled { opacity: 0.4; cursor: default; }
+
+/* Signing: two lines to write on, and a button. */
+.bk-vb-form { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr) auto; align-items: end; gap: 0.6em; padding: 0 0.3em; }
+.bk-vb-form input { width: 100%; height: 2.3em; padding: 0 0.1em; border: 0; border-bottom: 1px solid var(--bk-ink-faint); border-radius: 0; background: none; font: inherit; font-size: 0.8125em; color: var(--bk-ink); }
+.bk-vb-form input::placeholder { color: var(--bk-ink-soft); opacity: 0.8; }
+.bk-vb-form input:focus-visible { outline: none; border-bottom-color: var(--bk-ink); box-shadow: 0 1px 0 var(--bk-ink); }
+.bk-vb-sign { height: 2.3em; padding: 0 1em; border-radius: var(--bk-radius-control); background: linear-gradient(var(--bk-lacquer-top), var(--bk-lacquer)); color: var(--bk-on-lacquer); font-size: 0.8125em; font-weight: 500; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 1px 2px rgba(0, 0, 0, 0.22), 0 0.5em 1em -0.5em rgba(0, 0, 0, 0.4); transition: transform var(--bk-dur-press); }
+.bk-vb-sign:active { transform: translateY(1px); }

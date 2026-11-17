@@ -1,0 +1,23 @@
+/* No. 021 Days Since: a factory safety sign with flip numbers. */
+.bk-days-since { display: inline-block; width: 16em; }
+
+/* An enamel board: a coloured band across the top and two holes to hang it by. */
+.bk-ds-sign { position: relative; display: grid; justify-items: center; gap: 0.75em; padding: 0 1.1em 1.15em; overflow: hidden; border-radius: 0.8em; text-align: center; color: var(--bk-on-case); background: linear-gradient(#ffffff, #efede8); box-shadow: inset 0 1px 0 #fff, inset 0 0 0 1px rgba(9, 9, 11, 0.07), inset 0 -3px 6px rgba(9, 9, 11, 0.06), 0 1px 2px rgba(9, 9, 11, 0.14), 0 1.1em 1.7em -0.9em var(--bk-shade), 0 2.4em 3em -1.8em var(--bk-shade); }
+.bk-ds-band { --bk-ds-a: var(--bk-a); justify-self: stretch; margin: 0 -1.2em; padding: 0.95em 2em 0.8em; color: #fff; font-family: var(--bk-font-mono); font-size: 0.625em; font-weight: 500; letter-spacing: 0.12em; line-height: 1.35; text-transform: uppercase; text-wrap: balance;
+  background:
+    radial-gradient(circle at 1.3em 50%, rgba(0, 0, 0, 0.55) 0 0.3em, transparent 0.34em),
+    radial-gradient(circle at calc(100% - 1.3em) 50%, rgba(0, 0, 0, 0.55) 0 0.3em, transparent 0.34em),
+    linear-gradient(color-mix(in srgb, var(--bk-ds-a) 86%, #fff), var(--bk-ds-a));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 0 rgba(9, 9, 11, 0.12); }
+.bk-days-since[data-tone="plain"] .bk-ds-band { --bk-ds-a: var(--bk-accent, var(--bk-night)); }
+
+.bk-ds-count { display: flex; justify-content: center; margin-top: 0.35em; }
+.bk-ds-flaps { display: inline-flex; gap: 0.2em; padding: 0.28em; border-radius: 0.5em; background: #0a0a0b; box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9), 0 1px 0 rgba(255, 255, 255, 0.9); font-size: 2.5em; }
+.bk-ds-unit { display: block; margin-bottom: 0.5em; font-family: var(--bk-font-mono); font-size: 0.77em; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bk-on-case-soft); }
+
+.bk-ds-without { max-width: 100%; font-size: 0.8125em; line-height: 1.3; text-wrap: balance; }
+.bk-ds-what { display: block; font-family: var(--bk-font-serif); font-size: 1.55em; font-style: italic; line-height: 1.1; color: var(--bk-on-case); }
+
+.bk-ds-reset { height: 2em; padding: 0 0.95em; border-radius: 1em; border: 1px solid rgba(9, 9, 11, 0.14); background: linear-gradient(#fff, #f0eeea); box-shadow: inset 0 1px 0 #fff, 0 1px 2px rgba(9, 9, 11, 0.12); font-family: var(--bk-font-mono); font-size: 0.625em; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bk-on-case); transition: transform var(--bk-dur-press); }
+.bk-ds-reset:active { transform: translateY(1px); }
+.bk-ds-reset:focus-visible { outline-color: var(--bk-on-case); }

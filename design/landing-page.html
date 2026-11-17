@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bragkit — Show off, tastefully.</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400..500&family=Instrument+Serif:ital@0;1&display=swap">
+<!-- DESIGN REFERENCE for the Bragkit landing page. Static HTML + CSS, sample data hardcoded.
+     Rebuild it as React components in apps/web; keep the look, class structure is free to change. -->
+<style>
+body{margin:0}
+.pg{
+  --wall:#ffffff; --wall-alt:#f4f4f5; --hairline:#e4e4e7; --ink:#09090b; --ink-soft:#52525b; --ink-faint:#a1a1aa;
+  --brass:#9a7128; --brass-hi:#f6e7b8; --brass-mid:#d4ad5c; --brass-lo:#8f6c24; --on-brass:#33250a; --live:#16a34a;
+  --sans:'Geist',ui-sans-serif,system-ui,sans-serif; --mono:'Geist Mono',ui-monospace,Menlo,monospace; --serif:'Instrument Serif',Georgia,serif;
+  --sh-placard:inset 0 1px 0 rgba(255,255,255,.9),0 1px 0 rgba(9,9,11,.04),0 2px 4px rgba(9,9,11,.06),0 10px 18px -10px rgba(9,9,11,.18);
+  --sh-object:inset 0 1px 0 rgba(255,255,255,.95),0 1px 2px rgba(9,9,11,.06),0 12px 24px -10px rgba(9,9,11,.22),0 30px 60px -30px rgba(9,9,11,.28);
+  --sh-lift:inset 0 1px 0 rgba(255,255,255,.95),0 2px 4px rgba(9,9,11,.06),0 22px 36px -14px rgba(9,9,11,.26),0 48px 80px -40px rgba(9,9,11,.32);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+  background:var(--wall); color:var(--ink); font-family:var(--sans); -webkit-font-smoothing:antialiased; overflow-x:clip;
+}
+.pg *,.pg *::before,.pg *::after{box-sizing:border-box}
+.pg a{color:inherit;text-decoration:none}
+.pg a:focus-visible,.pg button:focus-visible,.pg input:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.wrap{max-width:1216px;margin:0 auto;padding:0 24px}
+.sec{padding-top:clamp(96px,11vw,168px)}
+.mono{font-family:var(--mono);font-weight:500;font-size:12px;line-height:16px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.h1{margin:0;font-size:clamp(64px,10.4vw,148px);line-height:.9;font-weight:450;letter-spacing:-.055em}
+.h2{margin:0;font-size:clamp(44px,6.2vw,92px);line-height:.96;font-weight:450;letter-spacing:-.045em;text-wrap:balance}
+.h1 em,.h2 em,.t-h em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.02em;font-size:1.07em}
+.lede{margin:0;font-size:clamp(17px,1.5vw,21px);line-height:1.5;color:var(--ink-soft);max-width:34em}
+.serif{font-family:var(--serif);font-style:italic;font-weight:400}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.bento{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:24px}
+.s4{grid-column:span 4}
+.s2{grid-column:span 2}
+.head{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px 48px;align-items:end;margin-bottom:clamp(40px,5vw,72px)}
+
+.wm{display:inline-flex;align-items:baseline;white-space:nowrap;font-weight:600;line-height:1;letter-spacing:-.05em}
+.wm i{position:relative;display:inline-block;font-style:normal}
+.wm i::after{content:"";position:absolute;left:50%;top:.08em;width:.2em;height:.2em;margin-left:-.1em;border-radius:50%;background:radial-gradient(circle at 34% 27%,rgba(255,255,255,.85) 0,rgba(255,255,255,0) 32%),radial-gradient(circle at 42% 36%,#f6e7b8 0,#d4ad5c 50%,#8f6c24 100%)}
+
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px;padding:0 10px 0 14px;border-radius:18px;border:1px solid rgba(255,255,255,.95);background:rgba(255,255,255,.8);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);box-shadow:var(--sh-placard)}
+.nav-links{display:flex;gap:4px}
+.nav-links a{padding:12px 14px;font-size:15px;line-height:20px;font-weight:500;color:var(--ink-soft)}
+.nav-links a:hover{color:var(--ink)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 20px;border-radius:12px;border:1px solid transparent;font-family:inherit;font-size:15px;line-height:20px;font-weight:500;cursor:pointer;transition:transform .12s}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(1px) scale(.98)}
+.btn-l{color:#fafafa !important;border-color:#18181b;background:linear-gradient(#3f3f46,#18181b 70%);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 1px 2px rgba(0,0,0,.22),0 8px 16px -8px rgba(0,0,0,.4)}
+.btn-p{color:var(--ink);border-color:var(--hairline);background:linear-gradient(#ffffff,#fafafa);box-shadow:var(--sh-placard)}
+.pg a.btn-p{color:var(--ink)}
+.btn-s{height:44px;padding:0 14px;font-size:14px}
+.medal{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;font-family:var(--mono);font-size:11px;font-weight:500;color:var(--on-brass);background:linear-gradient(var(--brass-hi),var(--brass-mid) 55%,var(--brass-lo));box-shadow:inset 0 1px 0 rgba(255,250,230,.9),0 1px 1px rgba(60,40,0,.25)}
+
+.plate{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:12px;height:48px;padding:0 36px;border:0;border-radius:8px;cursor:pointer;color:var(--on-brass);font-family:var(--mono);font-size:15px;font-weight:500;background:linear-gradient(180deg,var(--brass-hi) 0%,var(--brass-mid) 42%,var(--brass-mid) 60%,var(--brass-lo) 100%);box-shadow:inset 0 1px 0 rgba(255,250,230,.9),inset 0 -1px 0 rgba(80,56,10,.5),0 1px 1px rgba(60,40,0,.25),0 10px 20px -8px rgba(60,40,0,.45);text-shadow:0 1px 0 rgba(255,246,214,.6);transition:transform .12s}
+.plate:active{transform:translateY(1px)}
+.plate::before,.plate::after{content:"";position:absolute;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--brass-hi),var(--brass-lo) 80%);box-shadow:inset 0 -1px 1px rgba(51,37,10,.4),0 1px 0 rgba(255,246,214,.6)}
+.plate::before{left:13px}
+.plate::after{right:13px}
+.plate .shine,.ticket .shine{position:absolute;inset:0;pointer-events:none;background:linear-gradient(105deg,transparent 35%,rgba(255,252,238,.6) 50%,transparent 65%);transform:translateX(-120%)}
+.plate:hover .shine,.ticket:hover .shine{transform:translateX(120%);transition:transform 1s cubic-bezier(.65,0,.35,1)}
+.plate-sm{height:36px;padding:0 28px;font-size:12px;cursor:default}
+
+.live{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px 0 12px;border-radius:999px;border:1px solid var(--hairline);background:linear-gradient(#ffffff,#fafafa);box-shadow:var(--sh-placard);font-size:13px;color:var(--ink-soft)}
+.live b{font-family:var(--mono);font-weight:500;color:var(--ink)}
+.dot{flex:none;width:7px;height:7px;border-radius:50%;background:var(--live);box-shadow:0 0 0 3px rgba(22,163,74,.16);animation:breathe 2.4s ease-in-out infinite}
+@keyframes breathe{50%{box-shadow:0 0 0 6px rgba(22,163,74,.16);opacity:.75} }
+
+/* candy colours, shared by hung frames and cases */
+.c-ap{--top:#ffeddf;--bot:#ffbe8f;--shade:rgba(214,110,30,.32)}
+.c-li{--top:#f3edff;--bot:#cdb9ff;--shade:rgba(110,70,210,.30)}
+.c-mi{--top:#e5faf2;--bot:#9be5c9;--shade:rgba(20,140,100,.28)}
+.c-ro{--top:#ffedf3;--bot:#ffadc9;--shade:rgba(210,60,110,.30)}
+.c-co{--top:#3f5ef0;--bot:#2742d4;--shade:rgba(39,66,212,.42)}
+.c-pl{--top:#fafafa;--bot:#f4f4f5;--shade:rgba(9,9,11,.16)}
+
+/* HERO: frames hanging from a brass picture rail */
+.hero{position:relative;overflow:hidden;min-height:800px;margin-top:20px;display:flex;flex-direction:column}
+.rail{position:relative;z-index:3;height:8px;background:linear-gradient(180deg,var(--brass-hi),var(--brass-mid) 45%,var(--brass-lo));box-shadow:0 1px 0 rgba(80,56,10,.4),0 8px 14px -6px rgba(60,40,0,.35)}
+.hangs{position:absolute;inset:8px 0 0 0;pointer-events:none}
+.hang{position:absolute;top:0;display:flex;flex-direction:column;align-items:center;pointer-events:auto;transform-origin:50% 0;animation:sway var(--dur,7s) ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(var(--a,-1.5deg))} to{transform:rotate(var(--b,1.5deg))} }
+.wire{width:1.5px;height:var(--drop,120px);background:linear-gradient(#71717b,#a1a1aa)}
+.nail{position:relative;z-index:2;width:12px;height:12px;margin-bottom:-6px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--brass-hi),var(--brass-lo) 80%);box-shadow:0 1px 2px rgba(51,37,10,.5)}
+.frame{position:relative;width:212px;display:grid;gap:8px;padding:16px;border-radius:26px;border:1px solid rgba(255,255,255,.6);color:#18181b;background:linear-gradient(var(--top),var(--bot));box-shadow:inset 0 1px 0 rgba(255,255,255,.8),inset 0 -2px 8px rgba(0,0,0,.05),0 2px 4px -1px var(--shade),0 30px 50px -22px var(--shade);transition:transform .42s var(--spring)}
+.hang:hover .frame{transform:scale(1.05)}
+.frame .big b{font-size:54px}
+.frame .wl,.case .wl{color:#3f3f46}
+.ft{font-size:18px;line-height:22px;font-weight:500;letter-spacing:-.02em}
+.fs{font-size:13px;line-height:18px;color:#3f3f46}
+.art{position:relative;overflow:hidden;aspect-ratio:1.55;border-radius:14px;background:linear-gradient(135deg,#8a68ec,#3f5ef0 60%,#2236c4);box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
+.disc{position:absolute;border-radius:50%;background:radial-gradient(circle,#d4ad5c 0 16%,#111113 16.5% 18.5%,transparent 19%),conic-gradient(from 0deg,transparent 0 8%,rgba(255,255,255,.2) 13%,transparent 19% 56%,rgba(255,255,255,.14) 62%,transparent 68%),repeating-radial-gradient(circle,#18181b 0 2px,#27272a 2px 3px);box-shadow:0 8px 18px -6px rgba(0,0,0,.6);animation:spin 7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)} }
+.art .disc{right:-22%;top:8%;height:84%;aspect-ratio:1}
+.hero-copy{position:relative;z-index:2;max-width:680px;margin:auto;padding:72px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:30px}
+
+.wl{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-weight:500;font-size:11px;line-height:14px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft)}
+.big{display:flex;align-items:baseline;gap:8px;font-size:15px;color:#3f3f46}
+.big b{font-size:68px;line-height:.9;font-weight:450;letter-spacing:-.06em;color:#18181b}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.week i{aspect-ratio:1;border-radius:28%;background:rgba(255,255,255,.78);box-shadow:inset 0 1px 0 #ffffff,0 1px 2px rgba(150,70,10,.18)}
+.week i:last-child{background:linear-gradient(#3f3f46,#18181b);box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+.track{position:relative;height:6px;border-radius:3px;background:linear-gradient(90deg,#1b1f5c 0%,#3f5ef0 30%,#ffbe8f 50%,#3f5ef0 70%,#1b1f5c 100%)}
+.track i{position:absolute;top:-4px;left:9%;width:14px;height:14px;border-radius:50%;background:#ffffff;box-shadow:0 0 0 2px #18181b,0 2px 4px rgba(9,9,11,.3)}
+.bar{height:5px;border-radius:3px;background:rgba(255,255,255,.7);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:inherit;background:#18181b}
+.eq{display:inline-flex;align-items:flex-end;gap:2px;height:10px}
+.eq b{width:2px;border-radius:1px;background:var(--live);transform-origin:bottom;animation:eq .9s ease-in-out infinite}
+.eq b:nth-child(1){height:40%}
+.eq b:nth-child(2){height:100%;animation-delay:-.3s}
+.eq b:nth-child(3){height:65%;animation-delay:-.6s}
+@keyframes eq{50%{transform:scaleY(.35)} }
+
+/* marquee */
+.mq{overflow:hidden;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);padding:22px 0}
+.mq-in{display:flex;align-items:center;gap:40px;width:max-content;animation:mq 46s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)} }
+.mq-in span{font-family:var(--serif);font-style:italic;font-size:clamp(32px,4vw,52px);line-height:1;white-space:nowrap}
+.mq-in i{flex:none;width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 34% 27%,rgba(255,255,255,.85) 0,rgba(255,255,255,0) 32%),radial-gradient(circle at 42% 36%,#f6e7b8 0,#d4ad5c 50%,#8f6c24 100%)}
+
+/* widgets and cases */
+.wd{border-radius:20px;background:linear-gradient(#ffffff,#fafafa);box-shadow:var(--sh-object);color:var(--ink);max-width:100%;transition:transform .42s var(--spring),box-shadow .42s}
+.cs{width:78%;height:18px;margin:-9px auto 0;background:radial-gradient(closest-side,var(--shade,rgba(9,9,11,.26)),transparent);transition:transform .42s var(--spring),opacity .42s}
+.lift:hover .wd{transform:translateY(-10px)}
+.lift:hover .cs{transform:scaleX(.82);opacity:.55}
+.np{display:flex;gap:14px;width:330px;padding:14px}
+.np-art{flex:none;width:76px;height:76px;border-radius:12px;background:linear-gradient(135deg,#8a68ec,#3f5ef0 60%,#2236c4);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 6px 12px -6px rgba(60,30,160,.6)}
+.np-meta{display:grid;align-content:center;gap:3px;min-width:0;flex:1}
+.np-meta strong{font-size:16px;line-height:20px;font-weight:500;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.np-meta span{font-size:13px;line-height:18px;color:var(--ink-soft)}
+.np .bar{margin-top:6px;background:var(--hairline)}
+
+.case{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:12px;padding:clamp(24px,3vw,36px);border-radius:32px;border:1px solid rgba(255,255,255,.6);color:#18181b;background:linear-gradient(var(--top),var(--bot));box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -2px 8px rgba(0,0,0,.05),0 2px 4px -1px var(--shade),0 28px 54px -26px var(--shade)}
+.case::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 55% 70% at 50% -15%,rgba(255,255,255,.6),transparent 70%)}
+.case>*{position:relative}
+.case h3{margin:0;font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(36px,3.4vw,48px);line-height:1;letter-spacing:-.01em}
+.case p{margin:0;font-size:16px;line-height:24px;color:#3f3f46;max-width:36ch}
+.case .mono{color:#3f3f46}
+.case .wd{box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 1px 2px var(--shade),0 16px 30px -12px var(--shade)}
+.case.c-co{color:#ffffff;border-color:rgba(255,255,255,.18)}
+.case.c-co::before{opacity:.35}
+.case.c-co p,.case.c-co .mono{color:#eef1ff}
+.case.c-pl{border-color:var(--hairline)}
+.floor{margin-top:auto;padding-top:28px}
+.deck{position:relative;height:300px;min-width:0}
+.deck .sleeve{position:absolute;left:0;top:26px;z-index:1;width:210px;height:210px;border-radius:18px;background:linear-gradient(135deg,#8a68ec,#3f5ef0 60%,#2236c4);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 26px 40px -18px rgba(60,30,160,.65)}
+.deck .disc{left:104px;top:31px;width:200px;height:200px}
+.tiles{display:flex;gap:10px;align-items:flex-end}
+.tiles span{flex:1;height:60px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;font-weight:500;color:#18181b;box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 6px 10px -5px rgba(9,9,11,.3);transition:transform .42s var(--spring)}
+.tiles span:hover{transform:translateY(-8px)}
+.shelf{height:10px;margin-top:-1px;border-radius:2px;background:linear-gradient(#ffffff,#f4f4f5);box-shadow:inset 0 1px 0 #ffffff,inset 0 0 0 1px var(--hairline),0 14px 20px -12px rgba(9,9,11,.3)}
+.soon{display:flex;flex-direction:column;gap:6px;justify-content:flex-end;min-height:170px;padding:22px;border-radius:24px;border:1.5px dashed #a1a1aa;color:var(--ink)}
+.soon b{font-family:var(--serif);font-style:italic;font-weight:400;font-size:26px;line-height:28px}
+.soon small{font-size:14px;line-height:20px;color:var(--ink-soft)}
+
+.room{border-radius:44px;background:var(--wall-alt);padding:clamp(28px,5vw,72px)}
+.field{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.field input{height:48px;width:240px;max-width:100%;padding:0 16px;border-radius:12px;border:1px solid #a1a1aa;background:#ffffff;font-family:var(--mono);font-size:15px;color:var(--ink)}
+.browser{border-radius:24px;background:#ffffff;box-shadow:var(--sh-object);overflow:hidden;transform:rotate(1.2deg)}
+.browser-bar{display:flex;align-items:center;gap:6px;height:46px;padding:0 16px;border-bottom:1px solid var(--hairline);background:#fafafa}
+.browser-bar i{width:10px;height:10px;border-radius:50%;background:#d4d4d8}
+.url{margin-left:10px;flex:1;min-width:0;height:28px;display:flex;align-items:center;padding:0 12px;border-radius:999px;background:#ffffff;border:1px solid var(--hairline);font-family:var(--mono);font-size:12px;color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini{display:grid;gap:4px;padding:14px;border-radius:16px;min-width:0;color:#18181b}
+.mini strong{font-size:15px;line-height:20px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.code{margin:0;padding:24px 26px;border-radius:20px;border:1px solid rgba(255,255,255,.2);background:linear-gradient(rgba(255,255,255,.14),rgba(255,255,255,.06));box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 16px 30px -14px rgba(10,20,90,.55);font-family:var(--mono);font-size:14px;line-height:25px;color:#ffffff;white-space:pre;overflow-x:auto}
+.code em{font-style:normal;color:#c7d1ff}
+.code mark{background:rgba(246,231,184,.24);color:#ffffff;border-radius:4px;padding:2px 0}
+.facts{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:12px;font-size:17px;line-height:24px}
+.facts li{display:flex;align-items:center;gap:10px}
+.facts svg{flex:none;width:20px;height:20px}
+.perch{position:absolute;right:28px;bottom:calc(100% - 13px)}
+
+.info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 56px;margin:0}
+.info div{display:grid;grid-template-columns:160px minmax(0,1fr);gap:16px;padding:22px 0;border-top:1px solid var(--hairline)}
+.info dt{font-family:var(--mono);font-weight:500;font-size:12px;line-height:28px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.info dd{margin:0;font-size:19px;line-height:28px;letter-spacing:-.01em}
+.info dd span{color:var(--ink-soft)}
+.book{display:grid;margin-top:8px}
+.book span{display:flex;align-items:flex-end;height:46px;border-bottom:1px solid #d4d4d8;font-family:var(--serif);font-style:italic;font-size:24px;color:#71717b}
+
+/* golden ticket */
+.ticket{position:relative;overflow:visible;display:grid;grid-template-columns:minmax(0,1fr) 320px;border-radius:32px;color:var(--on-brass);background:linear-gradient(160deg,#f6e7b8 0%,#e6c97f 34%,#d4ad5c 62%,#b88f3e 100%);box-shadow:inset 0 1px 0 rgba(255,250,230,.95),inset 0 -2px 0 rgba(80,56,10,.35),0 2px 3px rgba(60,40,0,.2),0 50px 80px -36px rgba(120,84,10,.6);transform:rotate(-1.4deg);text-shadow:0 1px 0 rgba(255,246,214,.5)}
+.t-clip{position:absolute;inset:0;overflow:hidden;border-radius:inherit;pointer-events:none}
+.t-main{position:relative;padding:clamp(28px,5vw,60px);display:flex;flex-direction:column;gap:24px}
+.t-mono{font-family:var(--mono);font-weight:500;font-size:12px;line-height:16px;letter-spacing:.14em;text-transform:uppercase}
+.t-h{font-size:clamp(46px,7vw,104px);line-height:.92;font-weight:450;letter-spacing:-.05em}
+.t-meta{display:flex;flex-wrap:wrap;gap:12px 40px;margin:0}
+.t-meta div{display:grid;gap:2px}
+.t-meta dt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.t-meta dd{margin:0;font-size:20px;font-weight:500;letter-spacing:-.02em}
+.t-stub{position:relative;padding:clamp(24px,3vw,40px);border-left:2px dashed rgba(51,37,10,.5);display:flex;flex-direction:column;justify-content:space-between;gap:20px;text-shadow:none}
+.t-stub::before,.t-stub::after{content:"";position:absolute;left:-17px;width:32px;height:32px;border-radius:50%;background:var(--wall)}
+.t-stub::before{top:-16px}
+.t-stub::after{bottom:-16px}
+.t-no{font-family:var(--mono);font-size:26px;font-weight:500;letter-spacing:.04em}
+.t-perch{position:absolute;left:clamp(20px,5vw,64px);bottom:calc(100% - 14px)}
+
+/* after-hours footer */
+.night{position:relative;overflow:hidden;border-radius:48px 48px 0 0;background:#09090b;color:#fafafa;padding-top:clamp(48px,7vw,96px)}
+.night::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 46% 62% at 50% 100%,rgba(246,231,184,.20),transparent 70%),radial-gradient(ellipse 70% 40% at 50% 0%,rgba(255,255,255,.05),transparent 70%)}
+.night>*{position:relative}
+.night .mono{color:#a1a1aa}
+.foot-cols{display:grid;grid-template-columns:1.5fr repeat(3,minmax(0,1fr));gap:32px}
+.foot-cols a{display:block;padding:7px 0;font-size:15px;line-height:20px;color:#d4d4d8}
+.foot-cols a:hover{color:#ffffff}
+.giant-wrap{position:relative;display:flex;flex-direction:column;align-items:center;margin-top:clamp(56px,8vw,120px);font-size:clamp(88px,23vw,340px);line-height:1}
+.giant{font-size:1em;font-weight:600;letter-spacing:-.06em;line-height:.86;padding-bottom:.24em;background:linear-gradient(180deg,#f6e7b8 8%,#d4ad5c 48%,#8f6c24 92%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mirror{height:.3em;overflow:hidden;margin-top:-.02em;opacity:.5}
+.mirror .giant{display:inline-flex;transform:scaleY(-1);-webkit-mask-image:linear-gradient(to top,rgba(0,0,0,.6),transparent 62%);mask-image:linear-gradient(to top,rgba(0,0,0,.6),transparent 62%)}
+.sleeper{position:absolute;left:calc(50% - .34em - 60px);top:calc(.2em - 112px)}
+
+@media (max-width:1000px){
+  .hero{min-height:0}
+  .hangs{position:static;display:flex;flex-wrap:wrap;justify-content:center;gap:20px;padding:0 24px 72px}
+  .hang{position:static;animation:none}
+  .wire,.nail,.hang .bird{display:none}
+}
+@media (max-width:960px){
+  .g2,.g3,.info,.foot-cols,.head,.bento,.ticket{grid-template-columns:minmax(0,1fr)}
+  .g4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .s4,.s2{grid-column:auto}
+  .nav-links,.nav .live,.perch{display:none}
+  .info div{grid-template-columns:minmax(0,1fr);gap:2px}
+  .t-stub{border-left:0;border-top:2px dashed rgba(51,37,10,.5)}
+  .t-stub::before,.t-stub::after{display:none}
+  .browser,.ticket{transform:none}
+}
+@media (max-width:560px){
+  .g4{grid-template-columns:minmax(0,1fr)}
+  .frame{width:100%;max-width:340px}
+  .sleeper{left:calc(50% - .34em - 32px);top:calc(.2em - 60px)}
+  .sleeper img,.sleeper svg{width:64px;height:64px}
+}
+@media (prefers-reduced-motion:reduce){
+  .pg *,.pg *::before,.pg *::after{animation:none !important;transition:none !important}
+  .lift:hover .wd,.tiles span:hover,.hang:hover .frame{transform:none}
+}
+
+.stk{filter:drop-shadow(0 2px 2px rgba(9,9,11,.12)) drop-shadow(0 10px 16px rgba(9,9,11,.14))}
+</style>
+</head>
+<body>
+<div class="pg" id="top">
+
+  <!-- NAV -->
+  <div class="wrap" style="padding-top: 14px; position: sticky; top: 0; z-index: 20">
+    <header class="nav">
+      <a href="#top" style="display: flex; align-items: center; gap: 4px; min-height: 44px">
+        <img src="assets/glint-pearl.svg" width="46" height="46" alt="" style="display: block">
+        <span class="wm" role="img" aria-label="bragkit" style="font-size: 25px">bragk<i>ı</i>t</span>
+      </a>
+      <nav class="nav-links" aria-label="Main">
+        <a href="#collection">Collection</a>
+        <a href="#developers">Developers</a>
+        <a href="#visit">Visit</a>
+      </nav>
+      <div style="display: flex; align-items: center; gap: 8px">
+        <span class="live"><i class="dot" aria-hidden="true"></i><b>12</b> in the gallery</span>
+        <a class="btn btn-l btn-s" href="#github">Star <span class="medal">1.2k</span></a>
+      </div>
+    </header>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="rail" aria-hidden="true"></div>
+
+    <div class="hero-copy">
+      <h1 class="h1">Show off,<br><em>tastefully.</em></h1>
+      <p class="lede" style="max-width: 27em">Bragkit is a kit of live widgets for your portfolio. What you are playing, what you are shipping, what time it is where you are. One import each.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: center">
+        <button class="plate" type="button" data-copy aria-label="Copy install command: npm i bragkit"><span data-plate>npm i bragkit</span><span class="shine" aria-hidden="true"></span></button>
+        <a class="btn btn-l" href="#collection">Enter the gallery
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      </div>
+      <span style="font-size: 14px; line-height: 20px; color: #52525b">MIT licence · React 18 and 19 · No account needed</span>
+    </div>
+
+    <div class="hangs">
+      <div class="hang" style="left: max(2%, calc(50% - 650px)); z-index: 2; --drop: 84px; --a: -2.4deg; --b: 1deg; --dur: 6.5s">
+        <i class="wire" aria-hidden="true"></i><i class="nail" aria-hidden="true"></i>
+        <article class="frame c-li" aria-label="Now playing: Baby by Justin Bieber">
+          <div class="art" aria-hidden="true"><i class="disc"></i></div>
+          <span class="wl"><span class="eq" aria-hidden="true"><b></b><b></b><b></b></span>Now playing</span>
+          <strong class="ft">Baby</strong>
+          <span class="fs">Justin Bieber</span>
+        </article>
+      </div>
+      <div class="hang" style="left: max(4.5%, calc(50% - 618px)); z-index: 1; --drop: 452px; --a: 1.6deg; --b: -1.2deg; --dur: 8s">
+        <i class="wire" aria-hidden="true"></i><i class="nail" aria-hidden="true"></i>
+        <article class="frame c-ap" aria-label="Shipping streak: 47 days">
+          <span class="wl">Shipping streak</span>
+          <div class="big"><b>47</b> days</div>
+          <div class="week" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </article>
+      </div>
+      <div class="hang" style="right: max(2%, calc(50% - 650px)); z-index: 2; --drop: 196px; --a: 2deg; --b: -1.4deg; --dur: 7.4s">
+        <i class="wire" aria-hidden="true"></i><i class="nail" aria-hidden="true"></i>
+        <div style="position: relative">
+          <article class="frame c-mi" aria-label="Local time: 2:14 AM in Lisbon">
+            <span class="wl">Local time</span>
+            <div class="big"><b>02:14</b> AM</div>
+            <div class="track" aria-hidden="true"><i></i></div>
+            <span class="fs">Lisbon · asleep, probably</span>
+          </article>
+          <div class="bird" style="position: absolute; right: 8px; bottom: calc(100% - 10px)">
+            <img class="stk" src="assets/glint-pearl.svg" width="108" height="108" alt="" style="display: block">
+          </div>
+        </div>
+      </div>
+      <div class="hang" style="right: max(4.5%, calc(50% - 618px)); z-index: 1; --drop: 478px; --a: -1.8deg; --b: 1.4deg; --dur: 9s">
+        <i class="wire" aria-hidden="true"></i><i class="nail" aria-hidden="true"></i>
+        <article class="frame c-ro" aria-label="Currently building: a CLI that names your variables">
+          <span class="wl"><i class="dot" aria-hidden="true"></i>Currently building</span>
+          <strong class="ft">A CLI that names your variables</strong>
+          <span class="fs">Week 3 · 62% there</span>
+          <div class="bar" aria-hidden="true"><i style="width: 62%"></i></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="mq" aria-hidden="true">
+    <div class="mq-in">
+      <span>Now Playing</span><i></i><span>Shipping Streak</span><i></i><span>Local Time</span><i></i><span>Status Card</span><i></i><span>Tech Stack Shelf</span><i></i><span>Please touch the exhibits</span><i></i>
+      <span>Now Playing</span><i></i><span>Shipping Streak</span><i></i><span>Local Time</span><i></i><span>Status Card</span><i></i><span>Tech Stack Shelf</span><i></i><span>Please touch the exhibits</span><i></i>
+    </div>
+  </div>
+
+  <!-- THE COLLECTION -->
+  <section class="wrap sec" id="collection">
+    <div class="head">
+      <div style="display: grid; gap: 20px">
+        <span class="mono">The permanent collection</span>
+        <h2 class="h2">Please touch<br><em>the exhibits.</em></h2>
+      </div>
+      <p class="lede">Five widgets at opening. Each one reads live data, lifts when you hover it, and is its own import, so you only ship what you hang.</p>
+    </div>
+
+    <div class="bento">
+      <div class="case c-li s4 lift" style="min-height: 460px">
+        <span class="mono">No. 001</span>
+        <div class="g2" style="flex: 1; align-items: end; gap: 24px">
+          <div style="display: flex; flex-direction: column; gap: 14px; align-self: stretch">
+            <h3>Now Playing</h3>
+            <p>What you are listening to right now, with the cover, a moving bar and a quiet fallback for when the music stops.</p>
+            <div class="floor">
+              <article class="wd np" aria-label="Now playing: Baby by Justin Bieber">
+                <div class="np-art" aria-hidden="true"></div>
+                <div class="np-meta">
+                  <span class="wl"><span class="eq" aria-hidden="true"><b></b><b></b><b></b></span>Now playing</span>
+                  <strong>Baby</strong>
+                  <span>Justin Bieber</span>
+                  <div class="bar" aria-hidden="true"><i style="width: 62%"></i></div>
+                </div>
+              </article>
+              <div class="cs" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div class="deck" aria-hidden="true">
+            <div class="sleeve"></div>
+            <i class="disc"></i>
+            <div style="position: absolute; right: 0; bottom: -8px; z-index: 2">
+              <img class="stk" src="assets/glint-headphones.svg" width="176" height="176" alt="" style="display: block">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case c-ap s2">
+        <span class="mono">No. 002</span>
+        <h3>Shipping Streak</h3>
+        <p>Every day you ship adds a tile. Miss one and everyone can tell.</p>
+        <div class="floor" style="display: grid; gap: 16px">
+          <div class="big" style="font-size: 20px"><b style="font-size: clamp(96px, 10vw, 140px)">47</b> days</div>
+          <div class="week" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+
+      <div class="case c-mi s2">
+        <span class="mono">No. 003</span>
+        <h3>Local Time</h3>
+        <p>Your clock, for people in other time zones. Proof that you do reply, eventually.</p>
+        <div class="floor" style="display: grid; gap: 14px">
+          <div class="big" style="font-size: 20px"><b style="font-size: clamp(72px, 7.4vw, 104px)">02:14</b> AM</div>
+          <div class="track" aria-hidden="true"><i></i></div>
+          <span class="fs" style="font-size: 15px">Lisbon · asleep, probably</span>
+        </div>
+      </div>
+
+      <div class="case c-ro s2">
+        <span class="mono">No. 004</span>
+        <h3>Status Card</h3>
+        <p>One line about what you are building this week. Change it in one prop.</p>
+        <div class="floor" style="display: grid; gap: 12px">
+          <span class="wl"><i class="dot" aria-hidden="true"></i>Currently building</span>
+          <strong style="font-size: 28px; line-height: 32px; font-weight: 500; letter-spacing: -0.03em">A CLI that names your variables</strong>
+          <div class="bar" aria-hidden="true"><i style="width: 62%"></i></div>
+          <span class="fs" style="font-size: 15px">Week 3 · 62% there</span>
+        </div>
+      </div>
+
+      <div class="case c-pl s2">
+        <span class="mono">No. 005</span>
+        <h3>Tech Stack Shelf</h3>
+        <p>The tools you actually use, lined up on a shelf. Touch one.</p>
+        <div class="floor">
+          <div class="tiles" aria-label="TypeScript, React, Next.js, Postgres, Tailwind">
+            <span style="background: linear-gradient(#e8f0ff, #cfe0ff)">TS</span>
+            <span style="background: linear-gradient(#e5faf2, #9be5c9)">Re</span>
+            <span style="background: linear-gradient(#ffffff, #e4e4e7)">Nx</span>
+            <span style="background: linear-gradient(#f3edff, #cdb9ff)">Pg</span>
+            <span style="background: linear-gradient(#ffedf3, #ffadc9)">Tw</span>
+          </div>
+          <div class="shelf" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin: 64px 0 24px"><span class="mono">New acquisitions · Arriving after opening</span></div>
+    <div class="g4">
+      <div class="soon"><span class="mono">Reserved · No. 006</span><b>Contribution Graph</b><small>A year of commits as a wall of tiles.</small></div>
+      <div class="soon"><span class="mono">Reserved · No. 007</span><b>Visitors' Book</b><small>Let people sign your portfolio.</small></div>
+      <div class="soon"><span class="mono">Reserved · No. 008</span><b>Head Count</b><small>How many people are looking right now.</small></div>
+      <a class="soon" href="#github" style="border-style: solid; border-color: #18181b"><span class="mono">Open call</span><b>Suggest an exhibit</b><small>Open an issue and pitch No. 009.</small></a>
+    </div>
+  </section>
+
+  <!-- CURATE YOUR OWN WING -->
+  <section class="wrap sec">
+    <div class="room">
+      <div class="g2" style="gap: 56px; align-items: center">
+        <div style="display: flex; flex-direction: column; gap: 22px; align-items: flex-start">
+          <span class="mono">Try it</span>
+          <h2 class="h2">Curate <em>your own wing.</em></h2>
+          <p class="lede">Type your name and watch the sign on the door change. This is what visitors to your portfolio will see.</p>
+          <div class="field">
+            <label style="display: grid; gap: 8px">
+              <span class="mono">Your handle</span>
+              <input id="handle" type="text" value="ada" maxlength="20" autocomplete="off" spellcheck="false">
+            </label>
+            <a class="btn btn-l" href="#collection">Pick exhibits</a>
+          </div>
+          <span style="font-size: 14px; line-height: 20px; color: #52525b">Preview uses sample data.</span>
+        </div>
+        <div class="browser">
+          <div class="browser-bar"><i></i><i></i><i></i><span class="url"><span data-name>ada</span>.dev</span></div>
+          <div style="padding: clamp(22px, 3vw, 40px); display: flex; flex-direction: column; gap: 22px">
+            <div style="display: grid; gap: 8px">
+              <span class="mono">Now showing · 3 exhibits · Free entry</span>
+              <div class="serif" style="font-size: clamp(36px, 4.6vw, 60px); line-height: 1; overflow-wrap: anywhere">The <span data-name>ada</span> Collection</div>
+            </div>
+            <div class="g3" style="gap: 10px">
+              <div class="mini" style="background: linear-gradient(#f3edff, #cdb9ff)"><span class="wl" style="color: #3f3f46">Playing</span><strong>Baby</strong></div>
+              <div class="mini" style="background: linear-gradient(#ffeddf, #ffbe8f)"><span class="wl" style="color: #3f3f46">Streak</span><strong>47 days</strong></div>
+              <div class="mini" style="background: linear-gradient(#e5faf2, #9be5c9)"><span class="wl" style="color: #3f3f46">Local time</span><strong>02:14 AM</strong></div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: #52525b">
+              <img src="assets/glint-pearl.svg" width="34" height="34" alt="" style="display: block">
+              Curated with Bragkit
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEVELOPERS -->
+  <section class="wrap sec" id="developers">
+    <div class="case c-co" style="overflow: visible; padding: clamp(28px, 5vw, 72px); border-radius: 44px">
+      <div class="g2" style="gap: 56px; align-items: center">
+        <div style="display: flex; flex-direction: column; gap: 20px; align-items: flex-start">
+          <span class="mono">For developers</span>
+          <h2 class="h2">Hung in <em>three lines.</em></h2>
+          <p style="font-size: 19px; line-height: 29px">Import the exhibits you want and drop them into any page. No keys for the simple ones, one command for the rest.</p>
+          <ul class="facts">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Typed props with autocomplete</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>You only ship the exhibits you import</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Restyle everything with CSS variables</li>
+          </ul>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px">
+            <button class="plate" type="button" data-copy aria-label="Copy install command: npm i bragkit"><span data-plate>npm i bragkit</span><span class="shine" aria-hidden="true"></span></button>
+            <a class="btn btn-p" href="#docs">Read the docs</a>
+          </div>
+        </div>
+        <div style="position: relative; min-width: 0">
+          <div class="perch" aria-hidden="true">
+            <img class="stk" src="assets/glint-shades.svg" width="160" height="160" alt="" style="display: block">
+          </div>
+<pre class="code"><em>import</em> { NowPlaying, Streak, LocalTime } <em>from</em> "bragkit"
+
+<em>export default function</em> About() {
+  <em>return</em> (
+    &lt;section&gt;
+      <mark>&lt;NowPlaying user="you" /&gt;</mark>
+      <mark>&lt;Streak source="github" /&gt;</mark>
+      <mark>&lt;LocalTime zone="Europe/Lisbon" /&gt;</mark>
+    &lt;/section&gt;
+  )
+}</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISITOR INFORMATION -->
+  <section class="wrap sec" id="visit">
+    <div class="head">
+      <div style="display: grid; gap: 20px">
+        <span class="mono">Front desk</span>
+        <h2 class="h2">Visitor <em>information.</em></h2>
+      </div>
+      <p class="lede">Everything people usually ask before they walk in.</p>
+    </div>
+    <dl class="info">
+      <div><dt>Opening hours</dt><dd>Always. <span>It is a website.</span></dd></div>
+      <div><dt>Admission</dt><dd>Free. <span>MIT licence, no account.</span></dd></div>
+      <div><dt>Getting here</dt><dd>npm i bragkit. <span>pnpm, yarn and bun also know the way.</span></dd></div>
+      <div><dt>What to bring</dt><dd>React 18 or 19. <span>Next.js, Vite and Astro are all welcome.</span></dd></div>
+      <div><dt>Photography</dt><dd>Encouraged. <span>Post your gallery and tag Bragkit.</span></dd></div>
+      <div><dt>After hours</dt><dd>Dark theme included. <span>The exhibits keep their colours.</span></dd></div>
+      <div><dt>Accessibility</dt><dd>Keyboard friendly. <span>Calm for people who turn motion off.</span></dd></div>
+      <div><dt>Lost property</dt><dd>Found a bug? <span>Hand it in on GitHub Issues.</span></dd></div>
+    </dl>
+  </section>
+
+  <!-- VISITORS' BOOK + PATRONS -->
+  <section class="wrap sec">
+    <div class="g2">
+      <div class="case c-pl" style="justify-content: space-between">
+        <div style="display: grid; gap: 14px">
+          <span class="mono">Visitors' book</span>
+          <h3>Opening night.</h3>
+          <p>The book is still empty. Be the first to sign it with your name and your portfolio.</p>
+          <div class="book" aria-hidden="true"><span>Your name, your link</span><span></span><span></span></div>
+        </div>
+        <a class="btn btn-l" href="#github" style="align-self: flex-start; margin-top: 20px">Sign the book</a>
+      </div>
+      <div class="case c-ro" style="justify-content: space-between">
+        <div style="display: grid; gap: 14px">
+          <span class="mono">Patrons</span>
+          <h3>Your name on the wall.</h3>
+          <p>Bragkit is free and built in the open. Patrons get a brass plate in the lobby and Glint's lasting respect.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px">
+            <span class="plate plate-sm">Your name here</span>
+            <span class="plate plate-sm">And here</span>
+            <span class="plate plate-sm">Room for one more</span>
+          </div>
+        </div>
+        <a class="btn btn-p" href="#sponsor" style="align-self: flex-start; margin-top: 20px">Become a patron</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE GOLDEN TICKET -->
+  <section class="wrap sec" style="padding-top: clamp(200px, 20vw, 280px)">
+    <div class="ticket">
+      <div class="t-clip" aria-hidden="true"><span class="shine"></span></div>
+      <div class="t-perch" aria-hidden="true">
+        <img class="stk" src="assets/glint-shades.svg" width="190" height="190" alt="" style="display: block">
+      </div>
+      <div class="t-main">
+        <span class="t-mono">Admit one · The Bragkit Gallery</span>
+        <div class="t-h">Go on.<br><em>Brag a little.</em></div>
+        <dl class="t-meta">
+          <div><dt>Admission</dt><dd>Free</dd></div>
+          <div><dt>Valid</dt><dd>Forever</dd></div>
+          <div><dt>Seat</dt><dd>Front row</dd></div>
+          <div><dt>Dress code</dt><dd>Shiny</dd></div>
+        </dl>
+      </div>
+      <div class="t-stub">
+        <div style="display: grid; gap: 6px">
+          <span class="t-mono">Ticket</span>
+          <span class="t-no">No. 000001</span>
+        </div>
+        <div style="display: grid; gap: 10px">
+          <button class="btn btn-l" type="button" data-copy aria-label="Copy install command: npm i bragkit" style="font-family: 'Geist Mono', ui-monospace, monospace; width: 100%"><span data-plate>npm i bragkit</span></button>
+          <a class="btn" href="#collection" style="width: 100%; border-color: rgba(51, 37, 10, 0.55); color: #33250a">Enter the gallery</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER: AFTER HOURS -->
+  <footer class="sec">
+    <div class="night">
+      <div class="wrap">
+        <div class="foot-cols">
+          <div style="display: flex; flex-direction: column; gap: 16px; align-items: flex-start">
+            <span class="mono">Exit through the gift shop</span>
+            <div class="serif" style="font-size: clamp(32px, 3.4vw, 44px); line-height: 1.05; max-width: 11em">Glint stickers, opening soon.</div>
+            <div style="display: flex; align-items: flex-end; gap: 4px; margin-top: 4px" aria-hidden="true">
+              <div style="transform: rotate(-9deg)"><img class="stk" src="assets/glint-pearl.svg" width="92" height="92" alt="" style="display: block"></div>
+              <div style="transform: rotate(6deg) translateY(-10px)"><img class="stk" src="assets/glint-headphones.svg" width="92" height="92" alt="" style="display: block"></div>
+              <div style="transform: rotate(-4deg)"><img class="stk" src="assets/glint-shades.svg" width="92" height="92" alt="" style="display: block"></div>
+            </div>
+          </div>
+          <nav aria-label="Collection"><span class="mono">Collection</span>
+            <a href="#collection" style="margin-top: 12px">Now Playing</a><a href="#collection">Shipping Streak</a><a href="#collection">Local Time</a><a href="#collection">Status Card</a><a href="#collection">Tech Stack Shelf</a></nav>
+          <nav aria-label="Developers"><span class="mono">Developers</span>
+            <a href="#docs" style="margin-top: 12px">Docs</a><a href="#changelog">Changelog</a><a href="#github">GitHub</a><a href="#npm">npm</a></nav>
+          <nav aria-label="Community"><span class="mono">Community</span>
+            <a href="#github" style="margin-top: 12px">Visitors' book</a><a href="#sponsor">Patrons</a><a href="#x">X</a><a href="#github">Suggest an exhibit</a></nav>
+        </div>
+      </div>
+
+      <div class="giant-wrap" aria-hidden="true">
+        <span class="wm giant">bragk<i>ı</i>t</span>
+        <div class="sleeper"><img class="stk" src="assets/glint-asleep.svg" width="120" height="120" alt="" style="display: block"></div>
+      </div>
+
+      <div class="wrap">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding: 22px 0 28px; border-top: 1px solid #27272a; font-size: 14px; line-height: 20px; color: #a1a1aa">
+          <span>The gallery is closed for the night. The website is not.</span>
+          <span>© 2026 Bragkit · MIT licence · Curated by [YOUR NAME]</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  // copy the install command; every plate shows "Copied" for 1.4 s
+  var plates = document.querySelectorAll('[data-plate]'), timer;
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      try { navigator.clipboard.writeText('npm i bragkit').catch(function () {}); } catch (e) {}
+      plates.forEach(function (p) { p.textContent = 'Copied to clipboard'; });
+      clearTimeout(timer);
+      timer = setTimeout(function () { plates.forEach(function (p) { p.textContent = 'npm i bragkit'; }); }, 1400);
+    });
+  });
+  // "Curate your own wing": the handle drives the preview
+  var input = document.getElementById('handle');
+  input.addEventListener('input', function () {
+    var v = input.value.toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 20);
+    input.value = v;
+    document.querySelectorAll('[data-name]').forEach(function (n) { n.textContent = v || 'your-name'; });
+  });
+</script>
+</body>
+</html>

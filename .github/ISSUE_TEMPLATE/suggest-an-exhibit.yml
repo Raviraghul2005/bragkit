@@ -1,0 +1,62 @@
+name: Suggest an exhibit
+description: Pitch a new exhibit for the collection.
+title: "Exhibit suggestion: "
+labels: ["exhibit"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for pitching an exhibit. The best ones are a real object that does one thing when you touch it.
+        Read the design rules in `COLLECTION.md` (section 3) before you start.
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: What it would be called on its placard.
+      placeholder: Coffee Counter
+    validations:
+      required: true
+  - type: input
+    id: object
+    attributes:
+      label: The object
+      description: The real-world thing it is. If you cannot name the object, the idea is not ready.
+      placeholder: A row of espresso cups on a saucer rail
+    validations:
+      required: true
+  - type: input
+    id: moment
+    attributes:
+      label: The signature moment
+      description: The one thing it does when touched.
+      placeholder: Each cup fills when you hover it
+    validations:
+      required: true
+  - type: dropdown
+    id: wing
+    attributes:
+      label: Wing
+      options:
+        - East (what you are doing)
+        - West (what you have done)
+        - North (who you are)
+        - South (your visitors)
+    validations:
+      required: true
+  - type: textarea
+    id: props
+    attributes:
+      label: Props
+      description: The data it needs. It must work from props alone, with no keys and no network.
+      placeholder: "cups: number, label: string"
+  - type: textarea
+    id: live
+    attributes:
+      label: Could it be live?
+      description: Only public, keyless sources can run in the browser. Anything with a secret is a server adapter for later.
+  - type: checkboxes
+    id: build
+    attributes:
+      label: Building it
+      options:
+        - label: I would like to build this myself.

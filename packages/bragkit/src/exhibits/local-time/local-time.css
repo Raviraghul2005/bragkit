@@ -1,0 +1,41 @@
+/* No. 003 Local Time: a small arched window with the sky behind it. */
+.bk-local-time { display: grid; justify-items: start; width: 13em; }
+
+.bk-lt-window { position: relative; width: 11.4em; height: 12.6em; margin-left: 0.8em; padding: 0.62em; border-radius: 5.7em 5.7em 0.35em 0.35em; background: linear-gradient(var(--bk-t-top), var(--bk-t)); border: 1px solid var(--bk-t-edge);
+  box-shadow: inset 0 1px 0 var(--bk-t-rim), 0 1px 2px rgba(0, 0, 0, 0.08), 0 1.2em 2em -0.9em var(--bk-t-shade), 0 2.4em 3.4em -1.8em var(--bk-t-shade); }
+.bk-lt-sky { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 5.1em 5.1em 0.1em 0.1em; background: linear-gradient(#dfe6f0, #f2f5f9); box-shadow: inset 0 0.35em 0.5em -0.2em rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(0, 0, 0, 0.12); }
+.bk-lt-sky[data-ready] { background: linear-gradient(var(--bk-sky-top), var(--bk-sky-bottom)); }
+
+.bk-lt-stars { position: absolute; inset: 0; opacity: var(--bk-stars, 0);
+  background:
+    radial-gradient(circle, #fff 0 0.045em, transparent 0.06em) 12% 22% / 2.9em 3.1em,
+    radial-gradient(circle, rgba(255, 255, 255, 0.8) 0 0.035em, transparent 0.05em) 62% 10% / 2.3em 2.7em,
+    radial-gradient(circle, rgba(255, 255, 255, 0.6) 0 0.03em, transparent 0.045em) 35% 48% / 3.7em 2.1em; }
+
+.bk-lt-orb { position: absolute; width: 1.7em; height: 1.7em; margin: -0.85em 0 0 -0.85em; border-radius: 50%; transition: transform var(--bk-dur-lift) var(--bk-ease-lift); }
+.bk-lt-orb[data-kind="sun"] { background: radial-gradient(circle at 40% 35%, #fffdf2, #ffe9a8 60%, #ffd27a); box-shadow: 0 0 0.5em 0.1em rgba(255, 244, 200, 0.9), 0 0 2.2em 0.7em rgba(255, 214, 140, 0.55); }
+.bk-lt-orb[data-kind="moon"] { background: radial-gradient(circle at 36% 34%, #fffef6, #e9e6d6 70%); box-shadow: inset -0.34em -0.12em 0 0 rgba(120, 124, 150, 0.45), 0 0 1.4em 0.25em rgba(220, 228, 255, 0.35); }
+.bk-local-time:hover .bk-lt-orb { transform: scale(1.18); }
+
+/* Two soft hills on the horizon, so the sky has somewhere to end. */
+.bk-lt-land { position: absolute; left: -20%; right: -20%; bottom: -3.4em; height: 5.6em;
+  background:
+    radial-gradient(ellipse 46% 100% at 30% 100%, rgba(12, 22, 44, 0.42) 0 99%, transparent 100%),
+    radial-gradient(ellipse 50% 78% at 74% 100%, rgba(12, 22, 44, 0.28) 0 99%, transparent 100%); }
+.bk-lt-glass { position: absolute; inset: 0; background: linear-gradient(115deg, rgba(255, 255, 255, 0.28) 0 18%, transparent 18.5% 30%, rgba(255, 255, 255, 0.12) 30.5% 36%, transparent 36.5%); }
+
+.bk-lt-bar { position: absolute; background: linear-gradient(var(--bk-t-top), var(--bk-t)); box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px 0 var(--bk-t-rim); }
+.bk-lt-bar-v { left: 50%; top: 0.62em; bottom: 0.62em; width: 0.3em; margin-left: -0.15em; }
+.bk-lt-bar-h { left: 0.62em; right: 0.62em; top: 58%; height: 0.3em; }
+
+.bk-lt-sill { width: 13em; height: 0.75em; margin-top: -1px; border-radius: 0.14em; background: linear-gradient(var(--bk-t-top), var(--bk-t)); border: 1px solid var(--bk-t-edge); box-shadow: inset 0 1px 0 var(--bk-t-rim), 0 0.9em 1.1em -0.7em var(--bk-t-shade), 0 0.25em 0.3em -0.15em var(--bk-t-shade); }
+
+.bk-lt-meta { --bk-fg: var(--bk-ink); --bk-fg-soft: var(--bk-ink-soft); display: grid; gap: 0.25em; margin: 1.1em 0 0 0.8em; }
+.bk-lt-clock { display: flex; align-items: baseline; color: var(--bk-ink-soft); }
+.bk-lt-time { font-size: 2.75em; font-weight: 450; line-height: 0.95; letter-spacing: -0.055em; font-variant-numeric: tabular-nums; color: var(--bk-ink); }
+.bk-lt-period { margin-left: 0.4em; font-size: 0.875em; }
+.bk-lt-place { white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bk-local-time:hover .bk-lt-orb { transform: none; }
+}

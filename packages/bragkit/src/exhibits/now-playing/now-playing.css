@@ -1,0 +1,48 @@
+/* No. 001 Now Playing: a record sleeve with the vinyl sliding out. */
+.bk-now-playing { display: grid; gap: 1em; width: 17.5em; }
+.bk-np-stage { position: relative; height: 11em; }
+
+.bk-np-sleeve { position: absolute; z-index: 2; left: 0; top: 0; display: flex; align-items: flex-start; justify-content: space-between; width: 11em; height: 11em; padding: 0.7em 0.8em; overflow: hidden; border-radius: 0.3em; color: var(--bk-fg-soft);
+  background:
+    radial-gradient(circle at 0 100%, var(--bk-a) 0 34%, transparent 34.4%),
+    radial-gradient(circle at 0 100%, color-mix(in srgb, var(--bk-a) 58%, var(--bk-t)) 0 57%, transparent 57.4%),
+    radial-gradient(circle at 0 100%, color-mix(in srgb, var(--bk-a) 24%, var(--bk-t)) 0 80%, transparent 80.4%),
+    linear-gradient(160deg, var(--bk-t-top), var(--bk-t));
+  box-shadow: inset 0 1px 0 var(--bk-t-rim), inset 0 0 0 1px rgba(0, 0, 0, 0.05), inset -0.7em 0 0.7em -0.7em rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.14), 0 0.9em 1.4em -0.7em var(--bk-t-shade), 0 2em 2.6em -1.5em var(--bk-t-shade); }
+.bk-np-print { font-family: var(--bk-font-mono); font-size: 0.5em; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+
+.bk-np-slide { position: absolute; z-index: 1; left: 5.9em; top: 0.4em; width: 10.2em; height: 10.2em; transition: transform 700ms var(--bk-ease-settle); }
+.bk-np-boost { width: 100%; height: 100%; animation: bk-np-spin 2.4s linear infinite paused; }
+.bk-np-disc { width: 100%; height: 100%; border-radius: 50%; animation: bk-np-spin 7s linear infinite;
+  background:
+    radial-gradient(circle, var(--bk-wall) 0 2.2%, transparent 2.6%),
+    radial-gradient(circle, var(--bk-a) 0 17%, #0c0c0e 17.4% 19%, transparent 19.4%),
+    conic-gradient(from 20deg, transparent 0 7%, rgba(255, 255, 255, 0.28) 12%, transparent 18% 55%, rgba(255, 255, 255, 0.2) 61%, transparent 67%),
+    repeating-radial-gradient(circle, #19191c 0 0.13em, #2b2b30 0.13em 0.19em);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--bk-ink) 16%, #000), inset 0 0 0 1px rgba(255, 255, 255, 0.07), 0 0.5em 1em -0.4em rgba(0, 0, 0, 0.55); }
+@keyframes bk-np-spin { to { transform: rotate(360deg); } }
+
+.bk-now-playing:hover .bk-np-slide { transform: translateX(1.4em); }
+.bk-now-playing:hover .bk-np-boost { animation-play-state: running; }
+.bk-now-playing[data-paused] .bk-np-disc,
+.bk-now-playing[data-paused] .bk-np-boost { animation-play-state: paused; }
+
+.bk-np-meta { --bk-fg: var(--bk-ink); --bk-fg-soft: var(--bk-ink-soft); display: grid; gap: 0.3em; width: 11em; max-width: 100%; }
+.bk-np-track,
+.bk-np-artist { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.bk-np-track { margin-top: 0.1em; padding-bottom: 0.06em; }
+a.bk-np-track:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+.bk-np-bar { height: 0.25em; margin-top: 0.55em; overflow: hidden; border-radius: 1em; background: color-mix(in srgb, var(--bk-ink) 12%, transparent); }
+.bk-np-bar > span { display: block; height: 100%; border-radius: inherit; background: var(--bk-ink); }
+
+.bk-np-eq { display: inline-flex; align-items: flex-end; gap: 0.18em; height: 0.9em; }
+.bk-np-eq > span { width: 0.18em; height: 100%; border-radius: 1px; background: currentColor; transform-origin: bottom; transform: scaleY(0.45); animation: bk-np-eq 900ms ease-in-out infinite; }
+.bk-np-eq > span:nth-child(2) { animation-delay: -300ms; animation-duration: 760ms; }
+.bk-np-eq > span:nth-child(3) { animation-delay: -620ms; }
+.bk-np-eq > span:nth-child(4) { animation-delay: -150ms; animation-duration: 1040ms; }
+@keyframes bk-np-eq { 50% { transform: scaleY(1); } }
+.bk-now-playing[data-paused] .bk-np-eq > span { animation: none; transform: scaleY(0.25); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bk-now-playing:hover .bk-np-slide { transform: none; }
+}

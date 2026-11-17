@@ -1,0 +1,90 @@
+/* bragkit base: the root of every exhibit and primitive, the tones, the sizes and the shared labels. */
+
+.bk {
+  --bk-t-top: var(--bk-plinth);
+  --bk-t: var(--bk-plinth-shade);
+  --bk-t-shade: var(--bk-shade);
+  --bk-t-deep: var(--bk-ink);
+  --bk-t-rim: var(--bk-rim);
+  --bk-t-edge: var(--bk-hairline);
+  --bk-fg: var(--bk-ink);
+  --bk-fg-soft: var(--bk-ink-soft);
+  /* The strong colour of the exhibit. Set --bk-accent to change it. */
+  --bk-a: var(--bk-accent, var(--bk-t-deep));
+  position: relative;
+  box-sizing: border-box;
+  display: block;
+  max-width: 100%;
+  margin: 0;
+  font-family: var(--bk-font-sans);
+  font-size: calc(16px * var(--bk-scale, 1));
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.3;
+  letter-spacing: normal;
+  text-align: left;
+  text-transform: none;
+  color: var(--bk-ink);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bk[data-size="sm"] { --bk-scale: 0.8; }
+.bk[data-size="lg"] { --bk-scale: 1.25; }
+
+.bk[data-tone="apricot"] { --bk-t-top: var(--bk-apricot-top); --bk-t: var(--bk-apricot); --bk-t-shade: var(--bk-apricot-shade); --bk-t-deep: var(--bk-apricot-deep); }
+.bk[data-tone="lilac"] { --bk-t-top: var(--bk-lilac-top); --bk-t: var(--bk-lilac); --bk-t-shade: var(--bk-lilac-shade); --bk-t-deep: var(--bk-lilac-deep); }
+.bk[data-tone="mint"] { --bk-t-top: var(--bk-mint-top); --bk-t: var(--bk-mint); --bk-t-shade: var(--bk-mint-shade); --bk-t-deep: var(--bk-mint-deep); }
+.bk[data-tone="rose"] { --bk-t-top: var(--bk-rose-top); --bk-t: var(--bk-rose); --bk-t-shade: var(--bk-rose-shade); --bk-t-deep: var(--bk-rose-deep); }
+.bk[data-tone="cobalt"] { --bk-t-top: var(--bk-cobalt-top); --bk-t: var(--bk-cobalt); --bk-t-shade: var(--bk-cobalt-shade); --bk-t-deep: var(--bk-cobalt-deep); }
+.bk[data-tone="apricot"],
+.bk[data-tone="lilac"],
+.bk[data-tone="mint"],
+.bk[data-tone="rose"] { --bk-fg: var(--bk-on-case); --bk-fg-soft: var(--bk-on-case-soft); --bk-t-rim: rgba(255, 255, 255, 0.8); --bk-t-edge: rgba(255, 255, 255, 0.6); }
+.bk[data-tone="cobalt"] { --bk-fg: var(--bk-on-cobalt); --bk-fg-soft: #e6eaff; --bk-t-rim: rgba(255, 255, 255, 0.35); --bk-t-edge: rgba(255, 255, 255, 0.18); }
+
+:where(.bk) *,
+:where(.bk) *::before,
+:where(.bk) *::after { box-sizing: border-box; }
+:where(.bk) :where(button) { appearance: none; margin: 0; padding: 0; border: 0; background: none; font: inherit; color: inherit; text-align: inherit; cursor: pointer; }
+:where(.bk) :where(a) { color: inherit; text-decoration: none; }
+:where(.bk) :where(ol, ul) { margin: 0; padding: 0; list-style: none; }
+:where(.bk) :where(svg) { display: block; overflow: visible; }
+
+.bk:focus-visible,
+.bk :focus-visible { outline: 2px solid var(--bk-focus, var(--bk-ink)); outline-offset: 3px; }
+
+/* Museum labelling. */
+.bk-label { display: flex; align-items: center; gap: 0.55em; margin: 0; font-family: var(--bk-font-mono); font-size: 0.6875em; font-weight: 500; line-height: 1.3; letter-spacing: 0.07em; text-transform: uppercase; color: var(--bk-fg-soft); }
+.bk-title { margin: 0; font-family: var(--bk-font-serif); font-size: 1.625em; font-style: italic; font-weight: 400; line-height: 1.05; letter-spacing: -0.01em; color: var(--bk-fg); }
+.bk-text { margin: 0; font-size: 0.8125em; line-height: 1.4; color: var(--bk-fg-soft); }
+.bk-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* A small lacquer label that appears above an object on hover or focus. While hidden it has no
+   width, so a long label near the edge of the page cannot make the page scroll sideways. */
+.bk-has-tip { position: relative; }
+.bk-tip { position: absolute; left: 50%; bottom: calc(100% + 0.7em); z-index: 6; width: 0; padding: 0; overflow: hidden; border-radius: 0.55em; background: var(--bk-lacquer); color: var(--bk-on-lacquer); font-family: var(--bk-font-mono); font-size: 0.6875em; font-weight: 500; line-height: 1.2; letter-spacing: 0.03em; text-transform: none; white-space: nowrap; pointer-events: none; opacity: 0; transform: translate(-50%, 0.4em); transition: opacity 140ms, transform var(--bk-dur-lift) var(--bk-ease-lift); box-shadow: 0 0.5em 0.9em -0.4em var(--bk-shade); }
+.bk-has-tip:hover > .bk-tip,
+.bk-has-tip:focus-visible > .bk-tip,
+.bk-has-tip:focus-within > .bk-tip { width: max-content; padding: 0.4em 0.65em; opacity: 1; transform: translate(-50%, 0); }
+/* The first and last object in a row keep their label inside the row. */
+li.bk-has-tip:first-child:not(:only-child) > .bk-tip,
+li:first-child:not(:only-child) > .bk-has-tip > .bk-tip { left: 0; transform: translate(0, 0.4em); }
+li.bk-has-tip:last-child:not(:only-child) > .bk-tip,
+li:last-child:not(:only-child) > .bk-has-tip > .bk-tip { left: auto; right: 0; transform: translate(0, 0.4em); }
+li.bk-has-tip:first-child:not(:only-child):hover > .bk-tip,
+li.bk-has-tip:first-child:not(:only-child):focus-within > .bk-tip,
+li.bk-has-tip:last-child:not(:only-child):hover > .bk-tip,
+li.bk-has-tip:last-child:not(:only-child):focus-within > .bk-tip,
+li:first-child:not(:only-child) > .bk-has-tip:hover > .bk-tip,
+li:first-child:not(:only-child) > .bk-has-tip:focus-visible > .bk-tip,
+li:last-child:not(:only-child) > .bk-has-tip:hover > .bk-tip,
+li:last-child:not(:only-child) > .bk-has-tip:focus-visible > .bk-tip { transform: translate(0, 0); }
+
+/* Rest states are always the final state; animations only run from an earlier state, so this is safe. */
+@media (prefers-reduced-motion: reduce) {
+  .bk,
+  .bk *,
+  .bk *::before,
+  .bk *::after { animation: none !important; transition: none !important; }
+}

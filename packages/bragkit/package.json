@@ -1,0 +1,93 @@
+{
+  "name": "bragkit",
+  "version": "0.2.0",
+  "description": "Live React exhibits for your portfolio: now playing, shipping streak, local time, a departures board, a visitors' book and more. One import each.",
+  "license": "MIT",
+  "author": "Ravi Raghul",
+  "homepage": "https://bragkit.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Raviraghul2005/bragkit.git",
+    "directory": "packages/bragkit"
+  },
+  "bugs": {
+    "url": "https://github.com/Raviraghul2005/bragkit/issues"
+  },
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./styles.css": "./dist/styles.css",
+    "./tokens.css": "./dist/tokens.css",
+    "./css/*": "./dist/css/*",
+    "./package.json": "./package.json",
+    "./*": {
+      "import": {
+        "types": "./dist/*.d.ts",
+        "default": "./dist/*.js"
+      },
+      "require": {
+        "types": "./dist/*.d.cts",
+        "default": "./dist/*.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "react",
+    "widgets",
+    "portfolio",
+    "components",
+    "now-playing",
+    "github-streak",
+    "local-time",
+    "status",
+    "tech-stack",
+    "nextjs"
+  ],
+  "scripts": {
+    "build": "tsup && node scripts/finish-build.mjs",
+    "dev": "tsup --watch --onSuccess \"node scripts/finish-build.mjs\"",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "prepack": "node -e \"require('fs').copyFileSync('../../README.md','README.md')\"",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build",
+    "sizes": "tsup && node scripts/finish-build.mjs --sizes"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.2.0",
+    "esbuild": "^0.27.7",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "simple-icons": "^16.37.0",
+    "tsup": "^8.5.0",
+    "typescript": "~5.9.3",
+    "vitest": "^3.2.7"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

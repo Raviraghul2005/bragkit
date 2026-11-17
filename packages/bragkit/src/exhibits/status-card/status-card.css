@@ -1,0 +1,22 @@
+/* No. 004 Status Card: a departures board with split-flap letters. */
+.bk-status-card { --bk-sc-a: var(--bk-accent, var(--bk-t-deep)); display: inline-block; width: auto; }
+.bk-status-card[data-tone="plain"] { --bk-sc-a: var(--bk-accent, var(--bk-on-night)); }
+.bk-status-card[data-tone="apricot"] { --bk-sc-a: var(--bk-accent, #ffb057); }
+.bk-status-card[data-tone="lilac"] { --bk-sc-a: var(--bk-accent, #b9a2ff); }
+.bk-status-card[data-tone="mint"] { --bk-sc-a: var(--bk-accent, #6fe0b6); }
+.bk-status-card[data-tone="rose"] { --bk-sc-a: var(--bk-accent, #ff8fb6); }
+.bk-status-card[data-tone="cobalt"] { --bk-sc-a: var(--bk-accent, #7f98ff); }
+
+.bk-sc-board { display: grid; gap: 0.7em; padding: 0.9em 0.85em 0.95em; border-radius: 0.75em; color: var(--bk-on-night); background: linear-gradient(var(--bk-night-top), var(--bk-night) 22%, #101012);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 1px 2px rgba(0, 0, 0, 0.3), 0 1.1em 1.8em -0.9em var(--bk-shade), 0 2.4em 3.2em -1.8em var(--bk-shade); }
+
+.bk-sc-head { display: flex; align-items: center; gap: 0.7em; font-family: var(--bk-font-mono); font-size: 0.6875em; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: rgba(244, 241, 232, 0.7); }
+.bk-sc-lamp { width: 0.64em; height: 0.64em; border-radius: 50%; background: var(--bk-sc-a); box-shadow: 0 0 0.6em 0.05em color-mix(in srgb, var(--bk-sc-a) 70%, transparent); }
+
+.bk-sc-lines { display: grid; gap: 0.2em; padding: 0.3em; border-radius: 0.3em; background: #0a0a0b; box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9), 0 1px 0 rgba(255, 255, 255, 0.07); font-size: 1.06em; }
+.bk-sc-line { display: flex; gap: 0.12em; }
+
+.bk-sc-foot { display: flex; align-items: baseline; justify-content: space-between; gap: 1em; font-family: var(--bk-font-mono); font-size: 0.6875em; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(244, 241, 232, 0.7); }
+.bk-sc-pct { color: var(--bk-sc-a); font-variant-numeric: tabular-nums; }
+.bk-sc-bar { height: 0.22em; margin-top: -0.25em; overflow: hidden; border-radius: 1em; background: rgba(255, 255, 255, 0.12); }
+.bk-sc-bar > span { display: block; height: 100%; border-radius: inherit; background: var(--bk-sc-a); }

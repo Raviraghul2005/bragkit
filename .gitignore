@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.next/
+.next-alt/
+out/
+.vercel/
+*.tsbuildinfo
+next-env.d.ts
+.env*.local
+.DS_Store
+
+# copied from the repo root when the package is packed
+packages/bragkit/README.md
+npm-debug.log*
+
+# original handoff folder, kept locally for reference; its contents live in design/
+bragkit-handoff/

@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="Glint the magpie">
+  <defs>
+    <linearGradient id="gl-tail" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2fae80"></stop>
+      <stop offset="0.45" stop-color="#3f5ef0"></stop>
+      <stop offset="1" stop-color="#1b1f5c"></stop>
+    </linearGradient>
+    <linearGradient id="gl-wing" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3f5ef0"></stop>
+      <stop offset="0.55" stop-color="#2236c4"></stop>
+      <stop offset="1" stop-color="#121433"></stop>
+    </linearGradient>
+    <linearGradient id="gl-belly" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"></stop>
+      <stop offset="1" stop-color="#e4e4e7"></stop>
+    </linearGradient>
+    <linearGradient id="gl-body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3f3f46"></stop>
+      <stop offset="0.5" stop-color="#18181b"></stop>
+      <stop offset="1" stop-color="#09090b"></stop>
+    </linearGradient>
+    <radialGradient id="gl-pearl" cx="0.38" cy="0.32" r="0.75">
+      <stop offset="0" stop-color="#fffaf0"></stop>
+      <stop offset="0.18" stop-color="#f6e7b8"></stop>
+      <stop offset="0.6" stop-color="#d4ad5c"></stop>
+      <stop offset="1" stop-color="#8f6c24"></stop>
+    </radialGradient>
+    <radialGradient id="gl-shadow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#09090b" stop-opacity="0.32"></stop>
+      <stop offset="1" stop-color="#09090b" stop-opacity="0"></stop>
+    </radialGradient>
+    <linearGradient id="gl-lens" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2742d4"></stop>
+      <stop offset="1" stop-color="#09090b"></stop>
+    </linearGradient>
+  </defs>
+    <ellipse cx="100" cy="191" rx="46" ry="6" fill="url(#gl-shadow)"></ellipse>
+  <g fill="#ffffff" stroke="#ffffff" stroke-width="11" stroke-linejoin="round" stroke-linecap="round">
+    <path transform="translate(66 148) rotate(4)" d="M0 0 C-14 -10 -44 -11 -56 -3 C-61 1 -59 8 -52 9 C-38 11 -14 9 0 0 Z"></path>
+    <path transform="translate(66 148) rotate(34)" d="M0 0 C-14 -10 -44 -11 -56 -3 C-61 1 -59 8 -52 9 C-38 11 -14 9 0 0 Z"></path>
+    <path transform="translate(66 148) rotate(19) scale(1.08)" d="M0 0 C-14 -10 -44 -11 -56 -3 C-61 1 -59 8 -52 9 C-38 11 -14 9 0 0 Z"></path>
+    <rect x="89" y="160" width="6" height="26" rx="3"></rect>
+    <rect x="106" y="160" width="6" height="26" rx="3"></rect>
+    <ellipse cx="98" cy="122" rx="46" ry="50"></ellipse>
+    <circle cx="112" cy="70" r="34"></circle>
+    <path d="M106 42 Q107 27 119 24 Q113 32 117 39 Z"></path>
+    <path d="M138 69 Q156 73 167 78 Q156 84 138 87 Z"></path>
+      <circle cx="169" cy="79" r="10"></circle>
+  </g>
+  <path transform="translate(66 148) rotate(4)" d="M0 0 C-14 -10 -44 -11 -56 -3 C-61 1 -59 8 -52 9 C-38 11 -14 9 0 0 Z" fill="#1b1f5c"></path>
+  <path transform="translate(66 148) rotate(34)" d="M0 0 C-14 -10 -44 -11 -56 -3 C-61 1 -59 8 -52 9 C-38 11 -14 9 0 0 Z" fill="#2236c4"></path>
+  <path transform="translate(66 148) rotate(19) scale(1.08)" d="M0 0 C-14 -10 -44 -11 -56 -3 C-61 1 -59 8 -52 9 C-38 11 -14 9 0 0 Z" fill="url(#gl-tail)"></path>
+  <path transform="translate(66 148) rotate(19) scale(1.08)" d="M-8 1 C-20 -2 -36 -3 -48 0" stroke="#c6f5e3" stroke-opacity="0.55" stroke-width="2" stroke-linecap="round" fill="none"></path>
+  <rect x="89" y="160" width="6" height="26" rx="3" fill="#3f3f46"></rect>
+  <rect x="106" y="160" width="6" height="26" rx="3" fill="#3f3f46"></rect>
+  <path d="M84 186 L99 186 M101 186 L116 186" stroke="#3f3f46" stroke-width="4.5" stroke-linecap="round" fill="none"></path>
+  <ellipse cx="98" cy="122" rx="46" ry="50" fill="url(#gl-body)"></ellipse>
+  <ellipse cx="110" cy="141" rx="29" ry="29" fill="url(#gl-belly)"></ellipse>
+  <ellipse cx="76" cy="124" rx="24" ry="37" transform="rotate(18 76 124)" fill="url(#gl-wing)"></ellipse>
+  <path d="M64 112 Q70 132 82 150" stroke="#8ea2ff" stroke-opacity="0.45" stroke-width="2.5" stroke-linecap="round" fill="none"></path>
+  <ellipse cx="86" cy="99" rx="8" ry="16" transform="rotate(30 86 99)" fill="#ffffff"></ellipse>
+  <circle cx="112" cy="70" r="34" fill="url(#gl-body)"></circle>
+  <path d="M106 42 Q107 27 119 24 Q113 32 117 39 Z" fill="#18181b"></path>
+  <path d="M90 56 Q97 42 112 38" stroke="#ffffff" stroke-opacity="0.22" stroke-width="4" stroke-linecap="round" fill="none"></path>
+  <ellipse cx="129" cy="86" rx="6.5" ry="3.6" fill="#ffadc9" fill-opacity="0.9"></ellipse>
+  <path d="M138 69 Q156 73 167 78 Q156 84 138 87 Z" fill="#27272a"></path>
+  <path d="M141 78 L161 78" stroke="#52525b" stroke-width="1.6" stroke-linecap="round"></path>
+    <circle cx="123" cy="64" r="11.5" fill="#ffffff"></circle>
+    <circle cx="126.5" cy="65" r="6.8" fill="#09090b"></circle>
+    <circle cx="129" cy="61.5" r="2.3" fill="#ffffff"></circle>
+    <circle cx="169" cy="79" r="10" fill="url(#gl-pearl)"></circle>
+</svg>

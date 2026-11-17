@@ -1,0 +1,142 @@
+/* bragkit tokens. Every variable is prefixed --bk-. Override any of them on :root, or on one exhibit with `style`. */
+
+/* The room: these follow the theme. */
+:root,
+[data-bk-theme="light"],
+[data-bk-theme="auto"] {
+  --bk-wall: #ffffff;
+  --bk-wall-alt: #f4f4f5;
+  --bk-plinth: #ffffff;
+  --bk-plinth-shade: #fafafa;
+  --bk-hairline: #e4e4e7;
+  --bk-ink: #09090b;
+  --bk-ink-soft: #52525b;
+  --bk-ink-faint: #a1a1aa;
+  --bk-lacquer: #18181b;
+  --bk-lacquer-top: #3f3f46;
+  --bk-on-lacquer: #fafafa;
+  --bk-brass: #9a7128;
+  --bk-paper: #fdfaf3;
+  --bk-paper-shade: #f3eee2;
+  --bk-rim: rgba(255, 255, 255, 0.9);
+  --bk-shade: rgba(22, 22, 20, 0.22);
+  --bk-contact: rgba(9, 9, 11, 0.26);
+  --bk-live: #16a34a;
+  --bk-live-halo: rgba(22, 163, 74, 0.16);
+  --bk-shadow-placard: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 1px 0 rgba(22, 22, 20, 0.04), 0 2px 4px rgba(22, 22, 20, 0.06), 0 10px 18px -10px rgba(22, 22, 20, 0.18);
+  --bk-shadow-object: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 1px 2px rgba(22, 22, 20, 0.06), 0 12px 24px -10px rgba(22, 22, 20, 0.22), 0 30px 60px -30px rgba(22, 22, 20, 0.28);
+  --bk-shadow-paper: 0 1px 1px rgba(22, 22, 20, 0.08), 0 6px 10px -4px rgba(22, 22, 20, 0.16), 0 22px 30px -18px rgba(22, 22, 20, 0.28);
+}
+
+[data-theme="dark"],
+[data-bk-theme="dark"] {
+  --bk-wall: #09090b;
+  --bk-wall-alt: #121214;
+  --bk-plinth: #1c1c1f;
+  --bk-plinth-shade: #141416;
+  --bk-hairline: #27272a;
+  --bk-ink: #fafafa;
+  --bk-ink-soft: #a1a1aa;
+  --bk-ink-faint: #52525b;
+  --bk-lacquer: #fafafa;
+  --bk-lacquer-top: #ffffff;
+  --bk-on-lacquer: #09090b;
+  --bk-brass: #d9b66c;
+  --bk-paper: #f1ecdf;
+  --bk-paper-shade: #e3dccb;
+  --bk-rim: rgba(255, 255, 255, 0.07);
+  --bk-shade: rgba(0, 0, 0, 0.7);
+  --bk-contact: rgba(0, 0, 0, 0.7);
+  --bk-live: #4ade80;
+  --bk-live-halo: rgba(74, 222, 128, 0.18);
+  --bk-shadow-placard: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 1px 0 rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3), 0 10px 18px -10px rgba(0, 0, 0, 0.6);
+  --bk-shadow-object: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 24px -10px rgba(0, 0, 0, 0.7), 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+  --bk-shadow-paper: 0 1px 1px rgba(0, 0, 0, 0.4), 0 6px 10px -4px rgba(0, 0, 0, 0.5), 0 22px 30px -18px rgba(0, 0, 0, 0.8);
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-bk-theme="auto"] {
+    --bk-wall: #09090b;
+    --bk-wall-alt: #121214;
+    --bk-plinth: #1c1c1f;
+    --bk-plinth-shade: #141416;
+    --bk-hairline: #27272a;
+    --bk-ink: #fafafa;
+    --bk-ink-soft: #a1a1aa;
+    --bk-ink-faint: #52525b;
+    --bk-lacquer: #fafafa;
+    --bk-lacquer-top: #ffffff;
+    --bk-on-lacquer: #09090b;
+    --bk-brass: #d9b66c;
+    --bk-paper: #f1ecdf;
+    --bk-paper-shade: #e3dccb;
+    --bk-rim: rgba(255, 255, 255, 0.07);
+    --bk-shade: rgba(0, 0, 0, 0.7);
+    --bk-contact: rgba(0, 0, 0, 0.7);
+    --bk-live: #4ade80;
+    --bk-live-halo: rgba(74, 222, 128, 0.18);
+    --bk-shadow-placard: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 1px 0 rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3), 0 10px 18px -10px rgba(0, 0, 0, 0.6);
+    --bk-shadow-object: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 24px -10px rgba(0, 0, 0, 0.7), 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+    --bk-shadow-paper: 0 1px 1px rgba(0, 0, 0, 0.4), 0 6px 10px -4px rgba(0, 0, 0, 0.5), 0 22px 30px -18px rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* The objects: materials do not change with the room. */
+:root {
+  /* type: bragkit loads no fonts. Load Geist, Geist Mono and Instrument Serif, or point these at your own. */
+  --bk-font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --bk-font-serif: "Instrument Serif", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --bk-font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --bk-font-script: "Snell Roundhand", "Segoe Script", "Apple Chancery", "Lucida Handwriting", "Brush Script MT", cursive;
+
+  /* brass: plates, medals, nails, trophies. Nowhere else. */
+  --bk-brass-hi: #f6e7b8;
+  --bk-brass-mid: #d4ad5c;
+  --bk-brass-lo: #8f6c24;
+  --bk-on-brass: #33250a;
+  --bk-brass-face: linear-gradient(var(--bk-brass-hi), var(--bk-brass-mid) 46%, var(--bk-brass-lo));
+  --bk-shadow-plate: inset 0 1px 0 rgba(255, 250, 230, 0.9), inset 0 -1px 0 rgba(80, 56, 10, 0.5), 0 1px 1px rgba(60, 40, 0, 0.25), 0 8px 16px -8px rgba(60, 40, 0, 0.45);
+
+  /* tones: top and bottom of the gradient, the tinted shadow, and the strong version for details. */
+  --bk-apricot-top: #ffeddf;
+  --bk-apricot: #ffbe8f;
+  --bk-apricot-shade: rgba(214, 110, 30, 0.3);
+  --bk-apricot-deep: #e2702a;
+  --bk-lilac-top: #f3edff;
+  --bk-lilac: #cdb9ff;
+  --bk-lilac-shade: rgba(110, 70, 210, 0.28);
+  --bk-lilac-deep: #6f4fe0;
+  --bk-mint-top: #e5faf2;
+  --bk-mint: #9be5c9;
+  --bk-mint-shade: rgba(20, 140, 100, 0.26);
+  --bk-mint-deep: #138a63;
+  --bk-rose-top: #ffedf3;
+  --bk-rose: #ffadc9;
+  --bk-rose-shade: rgba(210, 60, 110, 0.28);
+  --bk-rose-deep: #d63a78;
+  --bk-cobalt-top: #3f5ef0;
+  --bk-cobalt: #2742d4;
+  --bk-cobalt-shade: rgba(39, 66, 212, 0.4);
+  --bk-cobalt-deep: #1b2fa8;
+  --bk-on-case: #18181b;
+  --bk-on-case-soft: #3f3f46;
+  --bk-on-cobalt: #ffffff;
+
+  /* night: the dark enamel of boards and counters, the same in both themes. */
+  --bk-night: #17171a;
+  --bk-night-top: #2b2b30;
+  --bk-on-night: #f4f1e8;
+
+  /* radius */
+  --bk-radius-placard: 3px;
+  --bk-radius-plate: 6px;
+  --bk-radius-control: 10px;
+
+  /* motion */
+  --bk-ease-lift: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --bk-ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
+  --bk-ease-unveil: cubic-bezier(0.65, 0, 0.35, 1);
+  --bk-dur-press: 120ms;
+  --bk-dur-lift: 420ms;
+  --bk-dur-unveil: 900ms;
+}

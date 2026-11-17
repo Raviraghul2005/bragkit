@@ -1,0 +1,33 @@
+/* No. 015 Calling Cards: a fan of paper cards held at the bottom, one per link. */
+/* At rest the top card sits straight and the others peek out behind it; touched, the fan opens evenly. */
+.bk-calling-cards { --bk-cc-spread: 4deg; --bk-cc-mid: calc(var(--bk-n) - 1); display: inline-grid; justify-items: center; width: 17.5em; }
+
+.bk-cc-fan { position: relative; width: 9.6em; height: 5.4em; margin: 1.9em 0 1.3em; }
+.bk-cc-fan > li { position: absolute; inset: 0; transform-origin: 50% 250%; transform: rotate(calc((var(--bk-i) - var(--bk-cc-mid)) * var(--bk-cc-spread))); transition: transform 520ms var(--bk-ease-lift); }
+.bk-calling-cards:hover,
+.bk-calling-cards:focus-within { --bk-cc-spread: 10.5deg; --bk-cc-mid: calc((var(--bk-n) - 1) / 2); }
+.bk-cc-fan > li:hover,
+.bk-cc-fan > li:focus-within { z-index: 2; }
+
+.bk-cc-card { position: relative; display: grid; align-content: space-between; width: 100%; height: 100%; padding: 0.7em 0.8em 0.65em 1.05em; overflow: hidden; border-radius: 0.3em; color: var(--bk-on-case); background: linear-gradient(var(--bk-paper), var(--bk-paper-shade)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 0 0 1px rgba(9, 9, 11, 0.06), var(--bk-shadow-paper); transition: transform var(--bk-dur-lift) var(--bk-ease-lift), box-shadow var(--bk-dur-lift); }
+/* A printed stripe down the edge, in the accent colour. */
+.bk-cc-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 0.28em; background: var(--bk-a); }
+/* The paper stays light in the dark theme, so a plain stripe stays dark. */
+.bk-calling-cards[data-tone="plain"] .bk-cc-card::before { background: var(--bk-accent, var(--bk-on-case)); }
+.bk-cc-label { font-family: var(--bk-font-mono); font-size: 0.5625em; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bk-on-case-soft); }
+.bk-cc-handle { overflow: hidden; font-family: var(--bk-font-serif); font-size: 1.15em; font-style: italic; line-height: 1.15; padding-bottom: 0.05em; white-space: nowrap; text-overflow: ellipsis; }
+.bk-cc-arrow { position: absolute; top: 0.5em; right: 0.65em; font-size: 0.75em; color: var(--bk-on-case-soft); transition: transform var(--bk-dur-lift) var(--bk-ease-lift); }
+
+.bk-cc-card:hover,
+.bk-cc-card:focus-visible { transform: translateY(-1.25em); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 0 0 1px rgba(9, 9, 11, 0.06), 0 1px 1px rgba(22, 22, 20, 0.08), 0 1em 1.2em -0.5em var(--bk-shade), 0 2.2em 2.4em -1.4em var(--bk-shade); }
+.bk-cc-card:hover .bk-cc-arrow,
+.bk-cc-card:focus-visible .bk-cc-arrow { transform: translate(0.15em, -0.15em); }
+
+.bk-cc-caption { --bk-fg-soft: var(--bk-ink-soft); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bk-cc-card:hover,
+  .bk-cc-card:focus-visible,
+  .bk-cc-card:hover .bk-cc-arrow,
+  .bk-cc-card:focus-visible .bk-cc-arrow { transform: none; }
+}

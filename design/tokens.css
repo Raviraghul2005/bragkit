@@ -1,0 +1,116 @@
+/* Bragkit Vitrine — design tokens. Source of truth for colour, type, space, radius, shadow and motion. */
+/* Fonts: load Geist (300..700), Geist Mono (400..500) and Instrument Serif (italic) — next/font/google or a Google Fonts link. */
+
+:root {
+  color-scheme: light;
+
+  /* type */
+  --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif; /* italic only: exhibit titles and the one accent word in a headline */
+  --font-mono: 'Geist Mono', ui-monospace, Menlo, monospace;
+
+  /* colour + shadow (light: "Gallery") */
+  --wall: #ffffff; /* Page background: the bright gallery wall. Every page and room sits on wall. */
+  --wall-alt: #f4f4f5; /* Full-width room shells and empty slots, one step off the wall. */
+  --plinth: #ffffff; /* Raised surfaces: widgets, placards, light buttons, nav. Top colour of their gradient. */
+  --plinth-shade: #fafafa; /* Bottom colour of a plinth gradient, so raised surfaces read as lit from above. */
+  --hairline: #e4e4e7; /* 1px borders on light buttons, pills, inputs and dividers. */
+  --ink: #09090b; /* Headings and important text on wall, room, plinth and plinth-shade (18:1 or better in both themes). */
+  --ink-soft: #52525b; /* Body copy, placard medium lines, catalog numbers, nav links. On wall, room and plinth (7:1 or better in both themes). */
+  --ink-faint: #a1a1aa; /* Decoration only: rules, disabled states, empty slots. Never for text people must read. */
+  --lacquer: #18181b; /* Primary button fill and its border. One lacquer button per view. */
+  --lacquer-top: #3f3f46; /* Top colour of the lacquer button gradient (the lit edge). */
+  --on-lacquer: #fafafa; /* Label and icon on a lacquer button, in both themes. */
+  --brass: #9a7128; /* Brass as a flat mark: icons, rules, numerals 24px+. 3:1 or better on wall and plinth; not for small text. */
+  --brass-hi: #f6e7b8; /* Top of every brass gradient (plate, medal). Same in both themes: metal does not change with the room. */
+  --brass-mid: #d4ad5c; /* Face of the brass plate and medal, the middle stop of the brass gradient. */
+  --brass-lo: #8f6c24; /* Bottom of the brass gradient and the plate's lower edge. */
+  --on-brass: #33250a; /* Engraved text on brass-hi and brass-mid (6:1 or better). */
+  --apricot-top: #ffeddf; /* Apricot case, top of its gradient. The warm, friendly room. */
+  --apricot: #ffbe8f; /* Apricot case, bottom of its gradient. */
+  --apricot-shade: rgba(214, 110, 30, 0.30); /* Tinted drop shadow under the apricot box and objects standing in it. */
+  --lilac-top: #f3edff; /* Lilac case, top. The playful room (streaks, fun features). */
+  --lilac: #cdb9ff; /* Lilac case, bottom. */
+  --lilac-shade: rgba(110, 70, 210, 0.28); /* Tinted drop shadow under the lilac box. */
+  --mint-top: #e5faf2; /* Mint case, top. The calm room (setup, docs, privacy). */
+  --mint: #9be5c9; /* Mint case, bottom. */
+  --mint-shade: rgba(20, 140, 100, 0.26); /* Tinted drop shadow under the mint box. */
+  --rose-top: #ffedf3; /* Rose case, top. The community room (sponsors, people). */
+  --rose: #ffadc9; /* Rose case, bottom. */
+  --rose-shade: rgba(210, 60, 110, 0.28); /* Tinted drop shadow under the rose box. */
+  --cobalt-top: #3f5ef0; /* Cobalt case, top. The one bold room per page (the developer pitch). */
+  --cobalt: #2742d4; /* Cobalt case, bottom. */
+  --cobalt-shade: rgba(39, 66, 212, 0.40); /* Tinted drop shadow under the cobalt box. */
+  --on-case: #18181b; /* Headings on apricot, lilac, mint and rose boxes, both themes (9:1 or better). */
+  --on-case-soft: #3f3f46; /* Body copy on apricot, lilac, mint and rose boxes (5.5:1 or better on their deepest stop). */
+  --on-cobalt: #ffffff; /* Headings on the cobalt box (5:1 or better). */
+  --spotlight: rgba(255, 255, 255, 0.60); /* Centre of the glow pool inside a case; follows the pointer and fades to nothing. */
+  --glass: rgba(255, 255, 255, 0.78); /* Frosted nav and floating bars, always with a 14px backdrop blur. */
+  --glass-edge: rgba(255, 255, 255, 0.95); /* 1px border on glass, the lit edge of the pane. */
+  --contact: rgba(9, 9, 11, 0.26); /* Centre of the contact-shadow ellipse under any standing object. */
+  --live: #16a34a; /* Live data only: the pulsing dot on counters and widgets. Always beside a word. */
+  --live-halo: rgba(22, 163, 74, 0.16); /* Soft ring around the live dot. */
+  --focus-ring: var(--ink); /* Solid 2px keyboard focus outline, 3px offset, on every interactive element. On the cobalt box use on-cobalt. */
+  --shadow-placard: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 1px 0 rgba(22, 22, 20, 0.04), 0 2px 4px rgba(22, 22, 20, 0.06), 0 10px 18px -10px rgba(22, 22, 20, 0.18); /* Placards, light buttons, pills, nav. */
+  --shadow-object: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 1px 2px rgba(22, 22, 20, 0.06), 0 12px 24px -10px rgba(22, 22, 20, 0.22), 0 30px 60px -30px rgba(22, 22, 20, 0.28); /* Widgets at rest. */
+  --shadow-object-lift: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 2px 4px rgba(22, 22, 20, 0.06), 0 22px 36px -14px rgba(22, 22, 20, 0.26), 0 48px 80px -40px rgba(22, 22, 20, 0.32); /* Widgets while hovered or dragged (lifted 10px). */
+  --shadow-lacquer: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 1px 2px rgba(0, 0, 0, 0.22), 0 8px 16px -8px rgba(0, 0, 0, 0.4); /* The lacquer (primary) button. */
+  --shadow-plate: inset 0 1px 0 rgba(255, 250, 230, 0.9), inset 0 -1px 0 rgba(80, 56, 10, 0.5), 0 1px 1px rgba(60, 40, 0, 0.25), 0 8px 16px -8px rgba(60, 40, 0, 0.45); /* Brass plates and medals. */
+  --shadow-case: inset 0 1px 0 rgba(255, 255, 255, 0.75), inset 0 -2px 8px rgba(0, 0, 0, 0.05), 0 1px 1px rgba(0, 0, 0, 0.05), 0 6px 14px -6px rgba(0, 0, 0, 0.10); /* Cases: lit top rim and soft inner floor, worn under the two drop shadows tinted in the case's *-shade colour. */
+
+  /* space + radius */
+  --space-1: 4px; /* Icon to label inside tight chips. */
+  --space-2: 8px; /* Gap between a button's icon and label; between stacked pills. */
+  --space-3: 12px; /* Placard padding; gaps inside widgets. */
+  --space-4: 16px; /* Widget padding; page side gutter on phones. */
+  --space-6: 24px; /* Gap between cards in a grid. */
+  --space-8: 32px; /* Case padding; gap between an object and its placard. */
+  --space-12: 48px; /* Gap between exhibits on a shelf. */
+  --space-16: 64px; /* Room heading to room content. */
+  --space-24: 96px; /* Between rooms (sections) on phones. */
+  --space-32: 128px; /* Between rooms (sections) on desktop. */
+  --radius-placard: 3px; /* Placards: cut paper, nearly square. */
+  --radius-plate: 6px; /* Brass plates. */
+  --radius-control: 10px; /* Buttons, inputs, nav. */
+  --radius-widget: 20px; /* Widgets (the exhibits themselves). */
+  --radius-case: 28px; /* Candy display cases. */
+  --radius-room: 40px; /* Full-width room shells. */
+  --radius-pill: 999px; /* Live pills, medals, avatars. */
+
+  /* motion */
+  --ease-lift: cubic-bezier(.34, 1.56, .64, 1);   /* hover lifts, presses, hops */
+  --ease-settle: cubic-bezier(.22, 1, .36, 1);    /* things arriving */
+  --ease-unveil: cubic-bezier(.65, 0, .35, 1);    /* shine sweeps, reveals */
+  --dur-press: 120ms;
+  --dur-lift: 420ms;
+  --dur-unveil: 900ms;
+}
+
+/* dark: "After hours" */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --wall: #09090b;
+  --wall-alt: #121214;
+  --plinth: #18181b;
+  --plinth-shade: #131315;
+  --hairline: #27272a;
+  --ink: #fafafa;
+  --ink-soft: #a1a1aa;
+  --ink-faint: #52525b;
+  --lacquer: #fafafa;
+  --lacquer-top: #ffffff;
+  --on-lacquer: #09090b;
+  --brass: #d9b66c;
+  --glass: rgba(24, 24, 27, 0.72);
+  --glass-edge: rgba(255, 255, 255, 0.08);
+  --contact: rgba(0, 0, 0, 0.70);
+  --live: #4ade80;
+  --live-halo: rgba(74, 222, 128, 0.18);
+  --shadow-placard: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 1px 0 rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3), 0 10px 18px -10px rgba(0, 0, 0, 0.6);
+  --shadow-object: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 24px -10px rgba(0, 0, 0, 0.7), 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+  --shadow-object-lift: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 2px 4px rgba(0, 0, 0, 0.5), 0 22px 36px -14px rgba(0, 0, 0, 0.75), 0 48px 80px -40px rgba(0, 0, 0, 0.85);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

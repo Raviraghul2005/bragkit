@@ -1,0 +1,21 @@
+{
+  "name": "bragkit-monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=20.9"
+  },
+  "scripts": {
+    "predev": "npm run build -w bragkit",
+    "dev": "concurrently -k -n pkg,web -c yellow,blue \"npm run dev -w bragkit\" \"npm run dev -w web\"",
+    "build": "npm run build -w bragkit && npm run build -w web",
+    "build:pkg": "npm run build -w bragkit",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

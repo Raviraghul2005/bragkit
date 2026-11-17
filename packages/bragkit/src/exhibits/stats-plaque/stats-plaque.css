@@ -1,0 +1,33 @@
+/* No. 012 Stats Plaque: an engraved brass plaque with a screw in each corner. */
+.bk-stats-plaque { display: inline-block; width: 18em; }
+
+.bk-sp-plate { position: relative; overflow: hidden; display: grid; gap: 1.1em; padding: 1.5em 1.7em 1.6em; border-radius: 0.5em; color: var(--bk-on-brass);
+  background:
+    radial-gradient(circle at 0.75em 0.75em, var(--bk-brass-hi) 0, var(--bk-brass-lo) 0.24em, transparent 0.27em),
+    radial-gradient(circle at calc(100% - 0.75em) 0.75em, var(--bk-brass-hi) 0, var(--bk-brass-lo) 0.24em, transparent 0.27em),
+    radial-gradient(circle at 0.75em calc(100% - 0.75em), var(--bk-brass-hi) 0, var(--bk-brass-lo) 0.24em, transparent 0.27em),
+    radial-gradient(circle at calc(100% - 0.75em) calc(100% - 0.75em), var(--bk-brass-hi) 0, var(--bk-brass-lo) 0.24em, transparent 0.27em),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.07) 0 1px, transparent 1px 3px),
+    linear-gradient(175deg, var(--bk-brass-hi) 0%, var(--bk-brass-mid) 38%, var(--bk-brass-mid) 62%, var(--bk-brass-lo) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 250, 230, 0.95), inset 0 -1px 0 rgba(80, 56, 10, 0.55), inset 0 0 0 0.3em rgba(255, 246, 214, 0.14), inset 0 0 0 calc(0.3em + 1px) rgba(80, 56, 10, 0.22), 0 1px 1px rgba(60, 40, 0, 0.3), 0 1.1em 1.6em -0.8em rgba(60, 40, 0, 0.5), 0 2.4em 3em -1.8em rgba(60, 40, 0, 0.45); }
+
+/* Engraved: dark in the cut, with light catching the lower edge. */
+.bk-sp-title { justify-self: center; font-family: var(--bk-font-mono); font-size: 0.625em; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; text-shadow: 0 1px 0 rgba(255, 246, 214, 0.65); opacity: 0.86; }
+.bk-sp-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1em 1em; margin: 0; }
+.bk-sp-plate[data-count="1"] .bk-sp-grid { grid-template-columns: minmax(0, 1fr); }
+.bk-sp-plate[data-count="3"] .bk-sp-grid,
+.bk-sp-plate[data-count="6"] .bk-sp-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.bk-sp-stat { display: grid; justify-items: center; gap: 0.3em; min-width: 0; text-align: center; }
+.bk-sp-num { position: relative; margin: 0; font-size: 2.1em; font-weight: 450; line-height: 1; letter-spacing: -0.045em; font-variant-numeric: tabular-nums; white-space: nowrap; text-shadow: 0 1px 0 rgba(255, 246, 214, 0.7), 0 -1px 0 rgba(60, 40, 0, 0.18); }
+.bk-sp-ghost { visibility: hidden; }
+.bk-sp-live { position: absolute; inset: 0; }
+.bk-sp-label { font-family: var(--bk-font-mono); font-size: 0.625em; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-shadow: 0 1px 0 rgba(255, 246, 214, 0.6); opacity: 0.86; }
+
+/* One sweep of light when the count starts, and one each time it is touched. */
+.bk-stats-plaque[data-phase="run"] .bk-shine { animation: bk-sp-shine var(--bk-dur-unveil) var(--bk-ease-unveil) 250ms backwards; }
+@keyframes bk-sp-shine { from { transform: translateX(-120%); } to { transform: translateX(120%); } }
+.bk-sp-plate:hover .bk-shine { transform: translateX(120%); transition: transform var(--bk-dur-unveil) var(--bk-ease-unveil); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bk-sp-plate:hover .bk-shine { transform: translateX(-120%); }
+}

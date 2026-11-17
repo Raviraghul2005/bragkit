@@ -1,0 +1,27 @@
+/* No. 011 Ship Log: a museum timeline. A thin rail on the wall, a brass pin for each thing shipped. */
+.bk-ship-log { display: grid; gap: 1.1em; width: 17em; }
+.bk-sl-head { padding-left: 1.75em; }
+.bk-sl-empty { padding-left: 1.75em; }
+
+.bk-sl-list { position: relative; display: grid; gap: 1.35em; padding: 0.2em 0 0.3em; }
+/* The rail. */
+.bk-sl-list::before { content: ""; position: absolute; left: 0.34em; top: 0; bottom: 0; width: 1px; background: linear-gradient(var(--bk-ink-faint), var(--bk-hairline)); }
+
+.bk-sl-entry { position: relative; display: grid; gap: 0.2em; padding-left: 1.75em; }
+.bk-sl-pin { position: absolute; left: 0; top: 0.12em; width: 0.72em; height: 0.72em; border-radius: 50%; background: radial-gradient(circle at 35% 30%, var(--bk-brass-hi), var(--bk-brass-mid) 45%, var(--bk-brass-lo) 85%); box-shadow: 0 1px 2px rgba(51, 37, 10, 0.5), 0 0.25em 0.3em -0.1em var(--bk-shade); transition: transform var(--bk-dur-lift) var(--bk-ease-lift); }
+.bk-sl-date { font-family: var(--bk-font-mono); font-size: 0.6875em; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--bk-ink-soft); }
+.bk-sl-title { justify-self: start; font-family: var(--bk-font-serif); font-size: 1.5em; font-style: italic; line-height: 1.1; color: var(--bk-ink); text-wrap: balance; }
+a.bk-sl-title { text-decoration: underline; text-decoration-color: var(--bk-hairline); text-decoration-thickness: 1px; text-underline-offset: 0.16em; transition: text-decoration-color 200ms; }
+a.bk-sl-title:hover { text-decoration-color: var(--bk-ink); }
+.bk-sl-entry:hover .bk-sl-pin { transform: scale(1.35); }
+
+/* Entries settle onto the rail one by one when the log comes into view. */
+.bk-ship-log[data-phase="wait"] .bk-sl-entry { opacity: 0; }
+.bk-ship-log[data-phase="run"] .bk-sl-entry { animation: bk-sl-settle 700ms var(--bk-ease-settle) backwards; animation-delay: calc(var(--bk-i) * 120ms); }
+.bk-ship-log[data-phase="run"] .bk-sl-pin { animation: bk-sl-pin 600ms var(--bk-ease-lift) backwards; animation-delay: calc(var(--bk-i) * 120ms + 120ms); }
+@keyframes bk-sl-settle { from { opacity: 0; transform: translateY(0.9em); } }
+@keyframes bk-sl-pin { from { transform: scale(0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .bk-sl-entry:hover .bk-sl-pin { transform: none; }
+}

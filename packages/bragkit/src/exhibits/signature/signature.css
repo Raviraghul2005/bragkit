@@ -1,0 +1,30 @@
+/* No. 016 Signature: a signed slip of paper. The ink writes itself when the slip comes into view. */
+.bk-signature { --bk-sg-ink: var(--bk-a); display: inline-block; width: 18em; }
+/* The paper stays light in the dark theme, so plain ink stays dark. */
+.bk-signature[data-tone="plain"] { --bk-sg-ink: var(--bk-accent, var(--bk-on-case)); }
+
+.bk-sg-slip { display: grid; padding: 0.9em 1.2em 0.9em; border-radius: 0.2em; color: var(--bk-on-case); background: linear-gradient(var(--bk-paper), var(--bk-paper-shade)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 0 0 1px rgba(9, 9, 11, 0.05), var(--bk-shadow-paper); transform: rotate(-1.2deg); }
+
+.bk-sg-ink { position: relative; aspect-ratio: 3; color: var(--bk-sg-ink); }
+.bk-sg-ink svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.bk-sg-write { position: absolute; inset: -12% 0; }
+.bk-sg-write svg { inset: 12% 0; height: auto; }
+.bk-sg-name { font-family: var(--bk-font-script); font-style: italic; fill: currentColor; stroke: currentColor; stroke-width: 0.5; stroke-linejoin: round; stroke-dasharray: 700; }
+.bk-sg-stroke { stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; vector-effect: none; }
+.bk-sg-under .bk-sg-stroke { stroke-width: 1.3; }
+
+/* Waiting off screen: no ink yet. On screen: the name is written left to right, then the stroke under it. */
+.bk-signature[data-phase="wait"] .bk-sg-write,
+.bk-signature[data-phase="wait"] .bk-sg-stroke { opacity: 0; }
+.bk-signature[data-phase="run"] .bk-sg-write { animation: bk-sg-wipe 1700ms var(--bk-ease-unveil) both; }
+.bk-signature[data-phase="run"] .bk-sg-name { animation: bk-sg-outline 2000ms var(--bk-ease-unveil) both; }
+.bk-signature[data-phase="run"] .bk-sg-stroke { animation: bk-sg-draw 2200ms var(--bk-ease-unveil) both; }
+.bk-signature[data-phase="run"] .bk-sg-under .bk-sg-stroke { animation-duration: 800ms; animation-delay: 1500ms; }
+@keyframes bk-sg-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 -5% 0 0); } }
+@keyframes bk-sg-outline { from { stroke-dashoffset: 700; fill-opacity: 0; } 60% { fill-opacity: 0; } }
+@keyframes bk-sg-draw { from { stroke-dashoffset: 1; } }
+
+.bk-sg-foot { display: flex; align-items: flex-end; gap: 0.5em; margin-top: -0.9em; color: var(--bk-on-case-soft); }
+.bk-sg-x { font-size: 0.8125em; line-height: 0.9; }
+.bk-sg-rule { flex: 1; height: 1px; background: currentColor; opacity: 0.45; }
+.bk-sg-caption { display: flex; justify-content: space-between; gap: 1em; margin-top: 0.55em; font-family: var(--bk-font-mono); font-size: 0.5625em; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bk-on-case-soft); }
