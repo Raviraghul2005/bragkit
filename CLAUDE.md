@@ -65,7 +65,7 @@ Six signatures make a screen look like Bragkit. Use them; do not invent new ones
 3. **Brass.** The install command sits on an engraved brass plate with two screws. Star counts are small brass medals. The final call to action is a golden ticket. Brass is used nowhere else.
 4. **Museum voice.** Exhibits are numbered ("No. 001"), their titles are set in italic serif like artwork titles, and the copy is dry and short.
 5. **Glint.** A magpie who collects shiny things. He appears a few times per page, always doing something that fits the spot (headphones by the music widget, sunglasses on the ticket, asleep in the footer).
-6. **After hours.** The footer is the only dark area: black room, warm spotlight, giant brass wordmark.
+6. **Blue glow.** The footer is the only coloured page area: a blue glow rises out of the white page, with brand, links, the Glint stickers and a giant white wordmark. No big headline (the golden ticket is the call to action). No black. The nav Star button is brass with a dark medal for the count.
 
 ## Type
 
